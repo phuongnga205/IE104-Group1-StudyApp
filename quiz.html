@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <!-- Learnie Project | IE104 | Nhóm Learnie | 2025 -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learnie Quiz | Kiểm tra từ vựng</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animation.css" />
+  <link rel="stylesheet" href="css/quiz.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__navbar container">
+      <a class="site-header__brand" href="index.html" aria-label="Learnie">
+        <img class="brand-logo-image" src="images/icons/Learnie_logo.svg" alt="" aria-hidden="true" loading="lazy" width="426" height="143" />
+      </a>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <a class="main-nav__link" href="index.html">Trang chủ</a>
+        <a class="main-nav__link main-nav__link--active" href="courses.html">Khóa học</a>
+        <a class="main-nav__link" href="about.html">Về chúng tôi</a>
+        <a class="main-nav__link" href="contact.html">Liên hệ</a>
+      </nav>
+      <div class="site-header__actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Đổi giao diện">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="quiz-main">
+    <section class="section section--quiz reveal">
+      <div class="container">
+        <h1 class="quiz-header__title" id="quizTopicTitle">Chủ đề: Đồ ăn &amp; Thức uống</h1>
+        <div class="quiz-wrapper">
+          <article class="quiz-card" id="quizCard">
+            <header class="quiz-card__meta">
+              <p class="quiz-card__progress" id="quizQuestionIndex">Câu hỏi 1 / 5</p>
+              <p class="quiz-card__score" id="quizScore">Điểm: 0 / 100</p>
+            </header>
+            <div class="quiz-card__content">
+              <h2 class="quiz-card__question" id="quizQuestionText">What is "cà phê" in English?</h2>
+              <div class="quiz-response" id="quizResponseArea"></div>
+              <div class="quiz-feedback" id="quizFeedback" role="status" hidden></div>
+            </div>
+            <footer class="quiz-card__footer">
+              <div class="quiz-card__actions">
+                <button class="btn btn--primary quiz-card__check" id="checkAnswerBtn" type="button">Kiểm tra đáp án</button>
+                <button class="btn btn--ghost quiz-card__next" id="nextQuestionBtn" type="button" disabled>Câu tiếp theo <span class="btn__icon">➜</span></button>
+              </div>
+            </footer>
+          </article>
+
+          <aside class="quiz-result" id="quizResult">
+            <h2 class="quiz-result__title" id="quizResultTitle">Điểm cao nhất</h2>
+            <p class="quiz-result__score" id="finalScoreText" hidden>Điểm: 80 / 100</p>
+            <p class="quiz-result__best" id="bestScoreText">Điểm cao nhất của bạn: 0 / 100</p>
+            <p class="quiz-result__description" id="quizResultDescription" hidden>Quay lại trang Khóa học để chọn chủ đề khác hoặc luyện lại để phá kỷ lục!</p>
+            <div class="quiz-result__actions" id="quizResultActions" hidden>
+              <button class="quiz-result__btn" id="restartQuizBtn" type="button">Làm lại từ đầu</button>
+              <a class="quiz-result__btn" href="courses.html">Quay lại Khóa học</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid container">
+      <div class="footer__column footer__column--brand">
+        <div class="footer__brand">
+          <img class="footer__brand-logo" src="images/icons/Learnie_logo.svg" alt="Learnie" loading="lazy" width="426" height="143" />
+          <p class="footer__description">Học tiếng&nbsp;Anh thông minh hơn, dễ hơn và vui hơn.</p>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h3 class="footer__heading">Liên kết nhanh</h3>
+        <ul class="footer__links">
+          <li><a class="footer__link" href="index.html">Trang chủ</a></li>
+          <li><a class="footer__link" href="courses.html">Khóa học</a></li>
+          <li><a class="footer__link" href="about.html">Về chúng tôi</a></li>
+          <li><a class="footer__link" href="contact.html">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <h3 class="footer__heading">Kết nối với chúng tôi</h3>
+        <ul class="footer__links footer__links--icons">
+          <li>
+            <a class="footer__link-icon" href="https://facebook.com" target="_blank" rel="noopener">
+              <img src="images/icons/facebook.svg" alt="Learnie trên Facebook" loading="lazy" width="28" height="28" />
+            </a>
+          </li>
+          <li>
+            <a class="footer__link-icon" href="https://instagram.com" target="_blank" rel="noopener">
+              <img src="images/icons/instagram.svg" alt="Learnie trên Instagram" loading="lazy" width="28" height="28" />
+            </a>
+          </li>
+          <li>
+            <a class="footer__link-icon" href="mailto:contact@learnie.vn">
+              <img src="images/icons/gmail.svg" alt="Gửi email cho Learnie" loading="lazy" width="28" height="28" />
+            </a>
+          </li>
+        </ul>
+        <div class="footer__hours">
+          <h4 class="footer__hours-title">Giờ làm việc</h4>
+          <p class="footer__hours-text">Thứ 2 – Thứ 6: 09:00 – 18:00<br />Thứ 7: 09:00 – 12:00<br /><span>(Nghỉ Chủ nhật và ngày lễ)</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__bottom-inner container">© 2025 Learnie. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>
