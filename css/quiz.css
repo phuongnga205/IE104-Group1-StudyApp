@@ -1,0 +1,355 @@
+/*
+  File: quiz.css
+  Mô tả: Kiểu dáng cho trang quiz, bao gồm card câu hỏi, đáp án và kết quả.
+  Người thực hiện: Nguyễn Đặng Quang Phúc – 23521204
+  Ngày cập nhật: 08/11/2025
+*/
+
+/* ===== QUIZ LAYOUT ===== */
+.quiz-main {
+  background-color: var(--color-surface-alt);
+}
+
+/* Note: Section quiz cần trong suốt để nội dung card nổi bật hơn */
+.section--quiz {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+/* Note: Giữ tiêu đề nhỏ gọn để vừa với mobile */
+.quiz-header__title {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Note: Lưới mặc định stack cột trên mobile, PC sẽ override ở media query */
+.quiz-wrapper {
+  display: grid;
+  gap: 2rem;
+}
+
+/* Note: Khi chỉ có 1 card thì canh giữa theo chiều ngang */
+.quiz-wrapper--single {
+  display: flex;
+  justify-content: center;
+}
+
+/* Note: Card dùng cùng style với kết quả để cảm giác đồng bộ */
+.quiz-card,
+.quiz-result {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+  transition: transform var(--transition-base);
+}
+
+.quiz-card__meta {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+/* Note: Dòng progress/score mờ để không lấn át câu hỏi */
+.quiz-card__progress,
+.quiz-card__score {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Note: Font đậm giúp câu hỏi là trọng tâm */
+.quiz-card__question {
+  color: var(--color-text);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Note: Lưu câu trả lời dạng column để hỗ trợ input + button */
+.quiz-response {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Note: Danh sách đáp án thành grid cho layout đều */
+.quiz-options {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Note: Button đáp án dùng nền phụ và animation nhẹ để tạo cảm giác tương tác */
+.quiz-option-btn {
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  transition: border-color var(--transition-base), transform var(--transition-base), background-color var(--transition-base);
+}
+
+/* Note: Hover/Focus nâng nhẹ để người dùng cảm giác bấm nút */
+.quiz-option-btn:hover,
+.quiz-option-btn:focus {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* Note: Khi disabled thì tắt animation để tránh hiểu lầm */
+.quiz-option-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+  transform: none;
+}
+
+.quiz-option-btn--selected {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+/* Note: Phân biệt correct/wrong bằng màu quen thuộc xanh/đỏ */
+.quiz-option-btn--correct {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #03543f;
+}
+
+.quiz-option-btn--wrong {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #7f1d1d;
+}
+
+.quiz-input {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+/* Note: Input bo góc giống button để nhất quán */
+.quiz-input__field {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  width: 100%;
+}
+
+.quiz-input__field:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.quiz-feedback {
+  border-radius: 12px;
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.quiz-feedback__explain {
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+/* Note: Feedback dùng màu nhẹ để không gây khó chịu */
+.quiz-feedback--correct {
+  background-color: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #03543f;
+}
+
+.quiz-feedback--correct .quiz-feedback__explain {
+  color: #03543f;
+}
+
+/* Note: Sai thì dùng màu đỏ nhưng vẫn đủ nhẹ để đọc text */
+.quiz-feedback--wrong {
+  background-color: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #7f1d1d;
+}
+
+.quiz-feedback--wrong .quiz-feedback__explain {
+  color: #7f1d1d;
+}
+
+.quiz-card__footer {
+  margin-top: 2rem;
+}
+
+/* Note: Footer action bọc flex để nút xếp gọn trên mobile */
+.quiz-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Note: Hai nút chính chung style để dễ mở rộng theme */
+.quiz-card__check {
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.quiz-card__next {
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.quiz-card__next--hidden {
+  display: none;
+}
+
+/* Note: Kết quả thiết kế dạng card trung tâm */
+.quiz-result {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.quiz-result__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Note: Điểm tổng làm nổi bật bằng font lớn */
+.quiz-result__score {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Note: Highlight best-score để khuyến khích người chơi */
+.quiz-result__best {
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Note: Mô tả ngắn nhắc người chơi cần cải thiện gì */
+.quiz-result__description {
+  font-size: 0.95rem;
+}
+
+/* Note: Action ở phần kết quả cần tự co giãn để vừa mọi màn */
+.quiz-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Note: Nút dùng dạng pill để trông giống CTA */
+.quiz-result__btn {
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  box-sizing: border-box;
+  color: var(--color-accent);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.95rem;
+  font-weight: 600;
+  gap: 0.4rem;
+  height: 52px;
+  justify-content: center;
+  line-height: 1;
+  min-width: 210px;
+  padding: 0 1.6rem;
+  text-decoration: none;
+  width: min(100%, 240px);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Note: Hover giữ cảm giác phần thưởng khi xem kết quả */
+.quiz-result__btn:hover,
+.quiz-result__btn:focus-visible {
+  background-color: rgba(37, 99, 235, 0.08);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Note: Dark mode override để nút không quá sáng */
+body.dark .quiz-result__btn {
+  background-color: rgba(37, 99, 235, 0.2);
+  border-color: rgba(148, 163, 184, 0.4);
+  color: #f8fafc;
+}
+
+body.dark .quiz-result__btn:hover,
+body.dark .quiz-result__btn:focus-visible {
+  background-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.4);
+}
+
+body.dark .quiz-result__best {
+  color: rgba(96, 165, 250, 0.95);
+}
+
+/* Note: Điều chỉnh tone màu trong nền tối để giữ contrast */
+body.dark .quiz-feedback--correct {
+  background-color: rgba(45, 212, 191, 0.18);
+  border-color: rgba(45, 212, 191, 0.45);
+  color: #ecfeff;
+}
+
+body.dark .quiz-feedback--correct .quiz-feedback__explain {
+  color: #e0f2f1;
+}
+
+/* Note: Dark mode cũng đổi màu cho đáp án đúng */
+body.dark .quiz-option-btn--correct {
+  background-color: rgba(45, 212, 191, 0.18);
+  border-color: rgba(34, 197, 94, 0.6);
+  color: #d1fae5;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+  /* Note: Từ tablet trở lên bật 2 cột: câu hỏi + bảng kết quả */
+  .quiz-wrapper {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+  }
+
+  /* Note: Card kết quả giữ vị trí khi cuộn */
+  .quiz-result {
+    position: sticky;
+    top: 120px;
+  }
+
+  .quiz-wrapper--single {
+    display: flex;
+  }
+}
+body.dark .quiz-feedback--wrong {
+  background-color: rgba(248, 113, 113, 0.18);
+  border-color: rgba(248, 113, 113, 0.45);
+  color: #fee2e2;
+}
+
+body.dark .quiz-feedback--wrong .quiz-feedback__explain {
+  color: #fecaca;
+}
+
+/* Note: Đáp án sai trong dark mode vẫn giữ sắc đỏ đặc trưng */
+body.dark .quiz-option-btn--wrong {
+  background-color: rgba(248, 113, 113, 0.15);
+  border-color: rgba(248, 113, 113, 0.6);
+  color: #fecaca;
+}
