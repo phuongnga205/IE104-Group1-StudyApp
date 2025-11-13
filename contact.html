@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <!-- Learnie Project | IE104 | Nhóm Learnie | 2025 -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liên hệ | Learnie</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animation.css" />
+  <link rel="stylesheet" href="css/contact.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__navbar container">
+      <a class="site-header__brand" href="index.html" aria-label="Learnie">
+        <img class="brand-logo-image" src="images/icons/Learnie_logo.svg" alt="" aria-hidden="true" loading="lazy" width="426" height="143" />
+      </a>
+      <nav class="main-nav" aria-label="Điều hướng chính">
+        <a class="main-nav__link" href="index.html">Trang chủ</a>
+        <a class="main-nav__link" href="courses.html">Khóa học</a>
+        <a class="main-nav__link" href="about.html">Về chúng tôi</a>
+        <a class="main-nav__link main-nav__link--active" href="contact.html">Liên hệ</a>
+      </nav>
+      <div class="site-header__actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Đổi giao diện">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section hero-section--sub reveal">
+      <div class="hero-section__inner container">
+        <h1 class="hero-section__title">Liên hệ với Learnie</h1>
+        <p class="hero-section__description">Chúng tôi luôn sẵn sàng lắng nghe mọi ý kiến và đồng hành cùng bạn trong hành trình học tiếng&nbsp;Anh.</p>
+      </div>
+    </section>
+
+    <section class="section section--contact reveal">
+      <div class="container contact-layout">
+        <form class="contact-form" id="contactForm" novalidate>
+          <h2 class="contact-form__title">Gửi ngay thông tin của bạn</h2>
+
+          <label class="contact-form__label" for="name">Tên của bạn *</label>
+          <input class="contact-form__input" type="text" id="name" name="name" placeholder="Ví dụ: Lê Ngọc Phương Nga" required />
+
+          <label class="contact-form__label" for="email">Email *</label>
+          <input class="contact-form__input" type="email" id="email" name="email" placeholder="Ví dụ:emailcuaban@learnie.vn" required />
+
+          <label class="contact-form__label" for="message">Nội dung liên hệ *</label>
+          <textarea class="contact-form__textarea" id="message" name="message" rows="6" placeholder="Chia sẻ điều bạn cần Learnie hỗ trợ..." required></textarea>
+
+          <div class="contact-form__actions">
+            <button class="btn btn--primary contact-form__submit" type="submit">Gửi ngay</button>
+          </div>
+          <p class="contact-form__feedback" id="formFeedback" role="alert" aria-live="assertive"></p>
+        </form>
+
+        <div class="contact-sidebar">
+          <article class="contact-card">
+            <h2 class="contact-card__title">Kết nối cùng Learnie</h2>
+            <ul class="contact-card__list">
+              <li class="contact-card__item">
+                <img class="contact-card__icon" src="images/icons/gmail.svg" alt="" aria-hidden="true" loading="lazy" width="28" height="28" />
+                <div>Email: <a href="mailto:contact@learnie.vn">contact@learnie.vn</a></div>
+              </li>
+              <li class="contact-card__item">
+                <img class="contact-card__icon" src="images/icons/facebook.svg" alt="" aria-hidden="true" loading="lazy" width="28" height="28" />
+                <div>Facebook: <a href="https://facebook.com/learnie" target="_blank" rel="noopener">facebook.com/learnie</a></div>
+              </li>
+              <li class="contact-card__item">
+                <img class="contact-card__icon" src="images/icons/instagram.svg" alt="" aria-hidden="true" loading="lazy" width="28" height="28" />
+                <div>Insta: <a href="https://instagram.com/learnie.vn" target="_blank" rel="noopener">@learnie.vn</a></div>
+              </li>
+              <li class="contact-card__item">
+                <img class="contact-card__icon" src="images/icons/location.svg" alt="" aria-hidden="true" loading="lazy" width="28" height="28" />
+                <div>Địa chỉ: Trường Đại học Công nghệ Thông tin – ĐHQG TP.HCM</div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="contact-card contact-card--hours">
+            <h2 class="contact-card__title">🕒 Giờ làm việc</h2>
+            <p>Thứ 2 – Thứ 6: 09:00 – 18:00<br />Thứ 7: 09:00 – 12:00<br /><em>(Nghỉ Chủ nhật và ngày lễ)</em></p>
+            <p class="contact-card__note">💬 Learnie sẽ phản hồi trong vòng 24 giờ làm việc.</p>
+          </article>
+          <article class="contact-card contact-card--map" aria-labelledby="contactMapTitle">
+            <h2 class="contact-card__title" id="contactMapTitle">📍 Bản đồ</h2>
+            <div class="contact-card__map-frame">
+              <iframe
+                class="contact-card__map"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.2312402759762!2d106.8030541!3d10.8700089!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527587e9ad5bf%3A0xafa66f9c8be3c91!2sUniversity%20of%20Information%20Technology%20-%20VNUHCM!5e0!3m2!1sen!2s!4v1762157695262!5m2!1sen!2s"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+                title="Bản đồ Trường Đại học Công nghệ Thông tin – ĐHQG TP.HCM"
+              ></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="toast" id="contactToast" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid container">
+      <div class="footer__column footer__column--brand">
+        <div class="footer__brand">
+          <img class="footer__brand-logo" src="images/icons/Learnie_logo.svg" alt="Learnie" loading="lazy" width="426" height="143" />
+          <p class="footer__description">Học tiếng&nbsp;Anh thông minh hơn, dễ hơn và vui hơn.</p>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h3 class="footer__heading">Liên kết nhanh</h3>
+        <ul class="footer__links">
+          <li><a class="footer__link" href="index.html">Trang chủ</a></li>
+          <li><a class="footer__link" href="courses.html">Khóa học</a></li>
+          <li><a class="footer__link" href="about.html">Về chúng tôi</a></li>
+          <li><a class="footer__link" href="contact.html">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <h3 class="footer__heading">Kết nối với chúng tôi</h3>
+        <ul class="footer__links footer__links--icons">
+          <li>
+            <a class="footer__link-icon" href="https://facebook.com" target="_blank" rel="noopener">
+              <img src="images/icons/facebook.svg" alt="Learnie trên Facebook" loading="lazy" width="28" height="28" />
+            </a>
+          </li>
+          <li>
+            <a class="footer__link-icon" href="https://instagram.com" target="_blank" rel="noopener">
+              <img src="images/icons/instagram.svg" alt="Learnie trên Instagram" loading="lazy" width="28" height="28" />
+            </a>
+          </li>
+          <li>
+            <a class="footer__link-icon" href="mailto:contact@learnie.vn">
+              <img src="images/icons/gmail.svg" alt="Gửi email cho Learnie" loading="lazy" width="28" height="28" />
+            </a>
+          </li>
+        </ul>
+        <div class="footer__hours">
+          <h4 class="footer__hours-title">Giờ làm việc</h4>
+          <p class="footer__hours-text">Thứ 2 – Thứ 6: 09:00 – 18:00<br />Thứ 7: 09:00 – 12:00<br /><span>(Nghỉ Chủ nhật và ngày lễ)</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__bottom-inner container">© 2025 Learnie. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>
