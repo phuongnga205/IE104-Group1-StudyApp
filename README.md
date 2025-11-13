@@ -93,4 +93,4 @@ Learnie/
 | 2 | Trần Thị Hoàng Nhung | 23521131 |
 | 3 | Nguyễn Đặng Quang Phúc | 23521204 |
 
-> *Mọi câu hỏi liên hệ qua `contact@learnie.vn` hoặc form Liên hệ trong dự án.*
+> *Mọi câu hỏi liên hệ qua `contact@learnie.vn` hoặc form Liên hệ trong dự án. *
