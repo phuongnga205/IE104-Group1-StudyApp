@@ -15,7 +15,14 @@
       <a class="site-header__brand" href="index.html" aria-label="Learnie">
         <img class="brand-logo-image" src="images/icons/Learnie_logo.svg" alt="" aria-hidden="true" loading="lazy" width="426" height="143" />
       </a>
-      <nav class="main-nav" aria-label="Điều hướng chính">
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mainNav">
+        <span class="menu-toggle__icon">
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+        </span>
+      </button>
+      <nav class="main-nav" id="mainNav" aria-label="Điều hướng chính">
         <a class="main-nav__link" href="index.html">Trang chủ</a>
         <a class="main-nav__link" href="courses.html">Khóa học</a>
         <a class="main-nav__link" href="about.html">Về chúng tôi</a>
@@ -41,10 +48,10 @@
           <h2 class="contact-form__title">Gửi ngay thông tin của bạn</h2>
 
           <label class="contact-form__label" for="name">Tên của bạn *</label>
-          <input class="contact-form__input" type="text" id="name" name="name" placeholder="Ví dụ: Lê Ngọc Phương Nga" required />
+          <input class="contact-form__input" type="text" id="name" name="name" placeholder="Ví dụ: Trần Minh Anh" required />
 
           <label class="contact-form__label" for="email">Email *</label>
-          <input class="contact-form__input" type="email" id="email" name="email" placeholder="Ví dụ:emailcuaban@learnie.vn" required />
+          <input class="contact-form__input" type="email" id="email" name="email" placeholder="Ví dụ: ban@learnie.vn" required />
 
           <label class="contact-form__label" for="message">Nội dung liên hệ *</label>
           <textarea class="contact-form__textarea" id="message" name="message" rows="6" placeholder="Chia sẻ điều bạn cần Learnie hỗ trợ..." required></textarea>
