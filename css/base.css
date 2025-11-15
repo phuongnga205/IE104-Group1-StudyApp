@@ -2,7 +2,7 @@
   File: base.css
   Mô tả: Thiết lập biến, layout nền tảng, header, footer và thành phần chung cho Learnie.
   Người thực hiện: Lê Ngọc Phương Nga – 23521204
-  Ngày cập nhật: 09/11/2025
+  Ngày cập nhật: 09/11/2025 (Quang Phúc cập nhật 16/11/2025)
 */
 
 /* ===== VARIABLES ===== */
@@ -123,6 +123,7 @@ body.dark .site-header {
   gap: 1.5rem;
   justify-content: space-between;
   min-height: 64px;
+  position: relative;
 }
 
 .site-header__brand {
@@ -134,6 +135,53 @@ body.dark .site-header {
   display: block;
   height: 45px;
   width: auto;
+}
+
+/* Hamburger menu button */
+.menu-toggle {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  width: 32px;
+  z-index: 101;
+}
+
+.menu-toggle__icon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 18px;
+  justify-content: space-between;
+  position: relative;
+  width: 24px;
+}
+
+.menu-toggle__line {
+  background-color: var(--color-text);
+  border-radius: 2px;
+  display: block;
+  height: 2px;
+  transition: all var(--transition-base);
+  width: 100%;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .main-nav {
@@ -453,6 +501,58 @@ body.dark .btn--ghost:focus {
 }
 
 /* ===== RESPONSIVE ===== */
+/* Mobile: Ẩn navigation, hiển thị hamburger menu */
+@media (max-width: 767px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .main-nav {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+    gap: 0;
+    left: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    transition: max-height var(--transition-base), opacity var(--transition-base);
+    width: 100%;
+    z-index: 100;
+  }
+
+  body.dark .main-nav {
+    background-color: var(--color-surface);
+  }
+
+  .main-nav[aria-expanded="true"] {
+    max-height: 400px;
+    opacity: 1;
+  }
+
+  .main-nav__link {
+    border-radius: 0;
+    display: block;
+    padding: 1rem 1.5rem;
+    text-align: left;
+    width: 100%;
+  }
+
+  .main-nav__link--active {
+    background-color: var(--color-accent);
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .main-nav__link:hover,
+  .main-nav__link:focus {
+    background-color: var(--color-overlay);
+  }
+}
+
 @media (min-width: 768px) {
   .section {
     padding: 4rem 0;
@@ -476,6 +576,20 @@ body.dark .btn--ghost:focus {
 
   .main-nav {
     gap: 1.5rem;
+    position: static;
+    max-height: none;
+    opacity: 1;
+    flex-direction: row;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .main-nav__link {
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    width: auto;
+    text-align: center;
   }
 
   .footer__grid {
