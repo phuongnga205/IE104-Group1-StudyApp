@@ -280,16 +280,21 @@ const quizWrapperElement = document.querySelector(".quiz-wrapper");
 
 // Chuẩn bị âm thanh phản hồi cho quiz (đúng, sai, hoàn thành)
 const quizAudioPlayers = {
-  correct: createAudioPlayer("audio/quiz-correct.wav"),
-  wrong: createAudioPlayer("audio/quiz-wrong.wav"),
-  complete: createAudioPlayer("audio/quiz-complete.wav")
+  // Note: Giảm âm lượng âm thanh "đúng" xuống 70% để tránh bị giật mình.
+  correct: createAudioPlayer("audio/quiz-correct.wav", 0.7),
+  // Note: Âm thanh "sai" giữ ở mức tối đa 100% vì file gốc hơi nhỏ.
+  wrong: createAudioPlayer("audio/quiz-wrong.wav", 1.0),
+  // Note: Âm thanh "hoàn thành" ở mức 80% là vừa phải.
+  complete: createAudioPlayer("audio/quiz-complete.wav", 0.8)
 };
 
 // Note: Tạo sẵn Audio element để tránh delay khi người dùng trả lời
-function createAudioPlayer(sourcePath) {
+// Note: Thêm tham số volume để tùy chỉnh âm lượng cho từng loại âm thanh.
+function createAudioPlayer(sourcePath, volume = 1.0) {
   const audio = new Audio(sourcePath);
   audio.preload = "auto";
-  audio.volume = 1;
+  // Note: volume nhận giá trị từ 0.0 (tắt tiếng) đến 1.0 (to nhất).
+  audio.volume = volume;
   return audio;
 }
 
@@ -301,12 +306,17 @@ function playQuizSound(type) {
     return;
   }
 
-  try {
-    player.pause();
-    player.currentTime = 0;
-    player.play().catch(() => {});
-  } catch (error) {
-    console.warn("Không thể phát âm thanh quiz:", error);
+  // Note: Reset âm thanh về đầu trước khi phát lại để đảm bảo âm thanh luôn bắt đầu từ đầu.
+  player.currentTime = 0;
+  const playPromise = player.play();
+
+  // Note: Trình duyệt hiện đại trả về một Promise khi play(). Xử lý lỗi để tránh
+  // cảnh báo "Uncaught (in promise)" trên console, thường xảy ra khi người dùng
+  // chưa tương tác với trang và trình duyệt chặn tự động phát media.
+  if (playPromise !== undefined) {
+    playPromise.catch((error) => {
+      console.warn("Không thể tự động phát âm thanh quiz:", error);
+    });
   }
 }
 
