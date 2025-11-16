@@ -70,10 +70,40 @@ function initFeatureCarousel() {
   }
 
   const cardSelector = ".feature-card";
+  const cards = Array.from(track.querySelectorAll(cardSelector));
 
-  if (!track.querySelector(cardSelector)) {
+  if (cards.length === 0) {
     return;
   }
+
+  // Note: Tạo pagination dots container
+  const paginationContainer = document.createElement("div");
+  paginationContainer.className = "feature-carousel__pagination";
+  paginationContainer.setAttribute("role", "tablist");
+  paginationContainer.setAttribute("aria-label", "Điều hướng carousel");
+  carousel.appendChild(paginationContainer);
+
+  // Note: Tạo dots cho mỗi card
+  const dots = [];
+  cards.forEach((card, index) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "feature-carousel__dot";
+    dot.setAttribute("role", "tab");
+    dot.setAttribute("aria-label", `Chuyển đến tính năng ${index + 1}`);
+    dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    dot.dataset.index = String(index);
+    
+    dot.addEventListener("click", () => {
+      goToCard(index);
+    });
+    
+    paginationContainer.appendChild(dot);
+    dots.push(dot);
+  });
+
+  // Note: Biến theo dõi vị trí hiện tại (index của card đầu tiên đang hiển thị)
+  let currentCardIndex = 0;
 
   let resizeTimer = null;
   let autoSlideTimer = null;
@@ -138,6 +168,68 @@ function initFeatureCarousel() {
       prevButton.tabIndex = -1;
       nextButton.tabIndex = -1;
     }
+  }
+
+  // Note: Cập nhật pagination dots dựa trên currentCardIndex
+  function updatePagination() {
+    dots.forEach((dot, index) => {
+      const isActive = index === currentCardIndex;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-selected", String(isActive));
+    });
+  }
+
+  // Note: Chuyển đến card cụ thể (dùng khi click vào dot)
+  function goToCard(targetIndex) {
+    if (isTransitioning || targetIndex === currentCardIndex) {
+      return;
+    }
+
+    const totalCards = cards.length;
+    if (targetIndex < 0 || targetIndex >= totalCards) {
+      return;
+    }
+
+    // Note: Tính số bước cần trượt (xử lý wrap-around)
+    let steps = targetIndex - currentCardIndex;
+    if (steps < 0) {
+      steps += totalCards;
+    }
+    if (steps > totalCards / 2) {
+      steps = steps - totalCards;
+    }
+
+    // Note: Trượt từng bước một, đợi mỗi bước hoàn thành
+    let stepCount = 0;
+    const maxSteps = Math.abs(steps);
+    
+    function executeNextStep() {
+      if (stepCount >= maxSteps) {
+        return;
+      }
+      
+      if (steps > 0) {
+        goToNext("manual");
+      } else {
+        goToPrevious();
+      }
+      
+      stepCount++;
+      
+      // Note: Đợi transition hoàn thành trước khi trượt tiếp
+      if (stepCount < maxSteps) {
+        const firstCard = cards[0];
+        if (firstCard) {
+          const handleStepComplete = () => {
+            firstCard.removeEventListener("transitionend", handleStepComplete);
+            executeNextStep();
+          };
+          firstCard.addEventListener("transitionend", handleStepComplete, { once: true });
+        }
+      }
+    }
+    
+    executeNextStep();
   }
 
   function stopAutoSlide() {
@@ -233,6 +325,10 @@ function initFeatureCarousel() {
         track.appendChild(firstChild);
       }
 
+      // Note: Cập nhật currentCardIndex sau khi di chuyển DOM
+      currentCardIndex = (currentCardIndex + 1) % cards.length;
+      updatePagination();
+
       track.style.transform = "translateX(0)";
       track.getBoundingClientRect();
       track.classList.remove("feature-carousel__track--no-transition");
@@ -265,6 +361,10 @@ function initFeatureCarousel() {
     if (lastChild) {
       track.insertBefore(lastChild, track.firstElementChild);
     }
+
+    // Note: Cập nhật currentCardIndex sau khi di chuyển DOM
+    currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
+    updatePagination();
 
     track.style.transform = `translateX(-${stepSize}px)`;
     track.getBoundingClientRect();
@@ -308,6 +408,7 @@ function initFeatureCarousel() {
   });
 
   syncMetrics();
+  updatePagination(); // Note: Khởi tạo pagination dots
   startAutoSlide();
 }
 
