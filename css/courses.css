@@ -550,6 +550,8 @@
 /* ===== COMPONENT: COURSE CARD (Thẻ khóa học) ===== */
 
 /* Kiểu dáng tổng thể cho một thẻ (card) */
+/* QUY TẮC 4: min-width đủ lớn để chứa "Điểm cao nhất: 100/100" + nút "Làm quiz" trên 1 hàng */
+/* Tính toán: padding (1.5rem x 2 = 3rem) + text (~180px) + gap (0.75rem) + nút (~120px) = ~330px */
 .course-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -558,6 +560,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  min-width: 330px; /* QUY TẮC 4: Đủ rộng để chứa footer trên 1 hàng */
   overflow: hidden;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
@@ -590,9 +593,11 @@
 }
 
 /* Phần thân (body) chứa nội dung text của card */
+/* QUY TẮC 1: flex-grow: 1 để đẩy footer xuống đáy card */
 .course-card__body {
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Đẩy footer xuống dưới cùng để các nút căn thẳng hàng */
   padding: 1.5rem;
 }
 
@@ -673,19 +678,22 @@ body.dark .course-card__badge--upcoming {
 }
 
 /* Phần chân (footer) của card (chứa điểm và nút) */
+/* QUY TẮC 2 & 3: flex-wrap: nowrap để không bao giờ xuống dòng, căn lề 2 phía */
 .course-card__footer {
   align-items: center;
   display: flex;
+  flex-wrap: nowrap; /* QUY TẮC 2: Không bao giờ xuống dòng */
   gap: 0.75rem;
-  justify-content: space-between;
   margin-top: auto; /* Đẩy footer xuống cuối card */
 }
 
 /* Text hiển thị điểm cao nhất */
+/* QUY TẮC 3: white-space: nowrap để text không tự vỡ, căn lề trái */
 .course-card__best-score {
   color: var(--color-accent);
   font-size: 0.95rem;
   font-weight: 600;
+  white-space: nowrap; /* QUY TẮC 3: Giữ chữ không tự vỡ, căn lề trái */
 }
 
 /* Text ghi chú (sắp ra mắt) */
@@ -695,8 +703,10 @@ body.dark .course-card__badge--upcoming {
   font-style: italic;
 }
 
+/* QUY TẮC 3: margin-left: auto để đẩy nút về lề phải */
 .course-card__actions {
-  flex-shrink: 0;
+  flex-shrink: 0; /* Nút không được co lại */
+  margin-left: auto; /* QUY TẮC 3: Tự động chiếm không gian trống, đẩy nút về lề phải */
 }
 
 /* Nút 'Làm quiz' */
@@ -750,11 +760,21 @@ body.dark .course-card__badge--upcoming {
   .course-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  
+  /* QUY TẮC 4: Trên tablet vẫn phải đảm bảo min-width để footer không vỡ */
+  .course-card {
+    min-width: 330px;
+  }
 }
 
 /* Responsive: Chia 3 cột cho màn hình > 1024px (Desktop) */
 @media (min-width: 1024px) {
   .course-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  /* QUY TẮC 4: Trên desktop vẫn phải đảm bảo min-width để footer không vỡ */
+  .course-card {
+    min-width: 330px;
   }
 }
