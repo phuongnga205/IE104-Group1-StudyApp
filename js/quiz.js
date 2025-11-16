@@ -535,9 +535,14 @@ function goToNextQuestion() {
 
 // Kết thúc quiz, cập nhật điểm cao nhất và hiện kết quả
 function finishQuiz() {
+  // Note: Ẩn card câu hỏi và hiển thị ô kết quả
   quizCardElement.hidden = true;
+  if (quizResultElement) {
+    quizResultElement.classList.add("quiz-result--visible");
+  }
   if (quizWrapperElement) {
-    // Note: Khi hoàn thành chỉ còn card kết quả nên ép layout single column
+    // Note: Khi hoàn thành chỉ còn card kết quả, xóa class quiz-only và thêm single
+    quizWrapperElement.classList.remove("quiz-wrapper--quiz-only");
     quizWrapperElement.classList.add("quiz-wrapper--single");
   }
   finalScoreElement.hidden = false;
@@ -573,11 +578,15 @@ function restartQuiz() {
   hasCheckedCurrentQuestion = false;
   inputField = null;
 
+  // Note: Ẩn ô kết quả và hiển thị lại card câu hỏi
+  if (quizResultElement) {
+    quizResultElement.classList.remove("quiz-result--visible");
+  }
   quizCardElement.hidden = false;
-  showInitialResultPanel();
   if (quizWrapperElement) {
-    // Note: Bỏ class single để layout về trạng thái 2 cột như ban đầu
+    // Note: Bỏ class single và thêm quiz-only để căn giữa quiz card
     quizWrapperElement.classList.remove("quiz-wrapper--single");
+    quizWrapperElement.classList.add("quiz-wrapper--quiz-only");
   }
   renderCurrentQuestion();
 }
@@ -634,9 +643,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Note: Trình tự khởi tạo: cập nhật tên chủ đề -> hiển thị điểm cao nhất -> render câu đầu
+  // Note: Trình tự khởi tạo: cập nhật tên chủ đề -> đảm bảo ô kết quả bị ẩn -> căn giữa quiz card -> render câu đầu
   updateTopicTitle();
-  showInitialResultPanel();
+  // Note: Đảm bảo ô kết quả bị ẩn khi bắt đầu làm quiz
+  if (quizResultElement) {
+    quizResultElement.classList.remove("quiz-result--visible");
+  }
+  // Note: Thêm class để căn giữa quiz card khi đang làm quiz
+  if (quizWrapperElement) {
+    quizWrapperElement.classList.remove("quiz-wrapper--single");
+    quizWrapperElement.classList.add("quiz-wrapper--quiz-only");
+  }
   renderCurrentQuestion();
 
   checkAnswerButton.addEventListener("click", handleCheckAnswer);
