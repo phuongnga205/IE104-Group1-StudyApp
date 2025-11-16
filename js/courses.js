@@ -57,13 +57,13 @@ const QUICK_KEYWORDS = [
 
 // Nhãn hiển thị cho các tùy chọn sắp xếp trong dropdown.
 const SORT_LABELS = {
-  default: "Sắp xếp",
+  default: "Sắp\u00A0xếp",
   "difficulty-asc": "Dễ → Khó",
   "difficulty-desc": "Khó → Dễ",
   "title-asc": "Tên A → Z",
   "title-desc": "Tên Z → A",
-  "score-asc": "Điểm thấp → cao",
-  "score-desc": "Điểm cao → thấp"
+  "score-asc": "Điểm\u00A0thấp → cao",
+  "score-desc": "Điểm\u00A0cao → thấp"
 };
 
 // Giá trị sắp xếp mặc định khi tải trang.
@@ -79,8 +79,8 @@ const DIFFICULTY_MULTI_LABELS = {
 
 // Nhãn hiển thị cho bộ lọc trạng thái.
 const STATUS_LABELS = {
-  available: "Có nội dung",
-  upcoming: "Sắp ra mắt"
+  available: "Có\u00A0nội\u00A0dung",
+  upcoming: "Sắp\u00A0ra\u00A0mắt"
 };
 
 // Cấu hình giá trị min, max và bước nhảy cho thanh trượt (slider) lọc điểm.
@@ -376,7 +376,7 @@ function getStatusOptions() {
 function initializeMultiSelects() {
   // Instance lọc Danh mục.
   categoryMultiSelect = createMultiSelectInstance("courseCategoryMulti", {
-    placeholder: "Tất cả Danh mục",
+    placeholder: "Tất\u00A0cả Danh\u00A0mục",
     options: getCategoryOptions(),
     onChange: (selectedValues) => {
       filters.category = selectedValues;
@@ -386,7 +386,7 @@ function initializeMultiSelects() {
 
   // Instance lọc Trình độ.
   difficultyMultiSelect = createMultiSelectInstance("courseDifficultyMulti", {
-    placeholder: "Tất cả Trình độ",
+    placeholder: "Tất\u00A0cả Trình\u00A0độ",
     options: getDifficultyOptions(),
     onChange: (selectedValues) => {
       filters.difficulty = selectedValues;
@@ -396,7 +396,7 @@ function initializeMultiSelects() {
 
   // Instance lọc Trạng thái.
   statusMultiSelect = createMultiSelectInstance("courseStatusMulti", {
-    placeholder: "Tất cả Chủ đề",
+    placeholder: "Tất\u00A0cả Chủ\u00A0đề",
     options: getStatusOptions(),
     onChange: (selectedValues) => {
       filters.status = selectedValues;
@@ -1444,7 +1444,7 @@ function renderCourseCatalog(courses) {
     const emptyState = document.createElement("div");
     emptyState.className = "course-empty";
     emptyState.textContent =
-      "Không tìm thấy chủ đề phù hợp. Hãy thử từ khóa khác hoặc điều chỉnh bộ lọc.";
+      "Không tìm\u00A0thấy chủ\u00A0đề phù hợp. Hãy thử từ\u00A0khóa khác hoặc điều chỉnh bộ\u00A0lọc.";
     courseGrid.append(emptyState);
     return;
   }
@@ -1462,7 +1462,7 @@ function renderCourseCatalog(courses) {
     const availabilityBadgeClass = course.available
       ? "course-card__badge"
       : "course-card__badge course-card__badge--upcoming";
-    const availabilityLabel = course.available ? "Có sẵn" : "Sắp ra mắt";
+    const availabilityLabel = course.available ? "Có\u00A0sẵn" : "Sắp\u00A0ra\u00A0mắt";
     const difficultyLabel = DIFFICULTY_LABELS[course.difficulty] || "Không xác định";
     const imageVariant = course.imageVariant || CATEGORY_IMAGE_VARIANTS.default;
     const { jpg: imageJpg, webp: imageWebp, width: imageWidth, height: imageHeight } = imageVariant;
@@ -1487,15 +1487,15 @@ function renderCourseCatalog(courses) {
           ${
           // Hiển thị điểm/ghi chú dựa trên trạng thái 'available'.
           course.available
-            ? `<p class="course-card__best-score">Điểm cao nhất: ${bestScore}/100</p>`
-            : `<p class="course-card__note">Nội dung sẽ được cập nhật sớm.</p>`
+            ? `<p class="course-card__best-score">Điểm&nbsp;cao nhất: ${bestScore}/100</p>`
+            : `<p class="course-card__note">Nội&nbsp;dung sẽ được cập&nbsp;nhật sớm.</p>`
         }
         ${
           // Hiển thị nút 'Làm quiz' nếu 'available'.
           course.available
             ? `<div class="course-card__actions">
                  <button class="course-card__btn" type="button" data-quiz-id="${course.id}">
-                   Làm quiz <span class="course-card__btn-icon" aria-hidden="true">➜</span>
+                   Làm&nbsp;quiz <span class="course-card__btn-icon" aria-hidden="true">➜</span>
                  </button>
                </div>`
             : ""
@@ -1552,31 +1552,31 @@ function updateResultsSummary(resultCount) {
   }
 
   const total = courseCatalog.length;
-  const summaryParts = [`Tìm thấy ${resultCount} / ${total} chủ đề`];
+  const summaryParts = [`Tìm\u00A0thấy ${resultCount} / ${total} chủ\u00A0đề`];
 
   const filtersApplied = [];
 
   if (filters.category.length) {
     const categoryNames = filters.category.map((category) => formatCategoryLabel(category));
-    filtersApplied.push(`danh mục ${categoryNames.join(", ")}`);
+    filtersApplied.push(`danh\u00A0mục ${categoryNames.join(", ")}`);
   }
 
   if (filters.difficulty.length) {
     const difficultyNames = filters.difficulty.map((key) => DIFFICULTY_MULTI_LABELS[key] || key);
-    filtersApplied.push(`trình độ ${difficultyNames.join(", ")}`);
+    filtersApplied.push(`trình\u00A0độ ${difficultyNames.join(", ")}`);
   }
 
   if (filters.status.length) {
     const statusNames = filters.status.map((key) => STATUS_LABELS[key] || key);
-    filtersApplied.push(`trạng thái ${statusNames.join(", ")}`);
+    filtersApplied.push(`trạng\u00A0thái ${statusNames.join(", ")}`);
   }
 
   if (!isScoreRangeDefault()) {
-    filtersApplied.push(`khoảng điểm ${filters.scoreRange.min} – ${filters.scoreRange.max}`);
+    filtersApplied.push(`khoảng\u00A0điểm ${filters.scoreRange.min} – ${filters.scoreRange.max}`);
   }
 
   if (filters.search) {
-    filtersApplied.push(`từ khóa "${filters.search}"`);
+    filtersApplied.push(`từ\u00A0khóa "${filters.search}"`);
   }
 
   if (filtersApplied.length) {
