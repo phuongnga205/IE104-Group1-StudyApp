@@ -85,8 +85,33 @@ ul {
 .container {
   margin: 0 auto;
   max-width: var(--max-width);
-  padding: 0 1rem;
+  padding: 0 1.25rem;
   width: 100%;
+}
+
+/* Responsive container margins - tăng dần theo kích thước màn hình */
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding: 0 4rem;
+  }
 }
 
 h1, h2, h3, h4 {
@@ -269,7 +294,8 @@ body.dark .site-header {
 
 .btn--primary:hover,
 .btn--primary:focus {
-  color:  #000;
+  background: linear-gradient(135deg, #3b82f6, #34d399);
+  color: #fff;
   box-shadow: var(--shadow-md);
 }
 
@@ -310,6 +336,25 @@ body.dark .btn--ghost:focus {
   text-align: center;
 }
 
+/* Responsive section margins */
+@media (min-width: 640px) {
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 4.5rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding: 5rem 0;
+  }
+}
+
 .section--alt {
   background-color: var(--color-surface-alt);
 }
@@ -336,6 +381,25 @@ body.dark .btn--ghost:focus {
   text-align: center;
 }
 
+/* Responsive hero margins */
+@media (min-width: 640px) {
+  .hero-section {
+    padding: 5rem 0 4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-section {
+    padding: 5.5rem 0 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    padding: 6rem 0 5rem;
+  }
+}
+
 .hero-section--sub {
   background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.18), rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0));
 }
@@ -346,7 +410,18 @@ body.dark .btn--ghost:focus {
 
 .hero-section__inner {
   margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Giới hạn chiều rộng nội dung hero để dễ đọc, nhưng vẫn giữ padding khớp với container */
+.hero-section__inner .hero-section__title,
+.hero-section__inner .hero-section__subtitle,
+.hero-section__inner .hero-section__description,
+.hero-section__inner .hero-section__actions {
   max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-section__title {
@@ -379,18 +454,43 @@ body.dark .btn--ghost:focus {
   border-top: 1px solid var(--color-border);
 }
 
-
 .footer__grid {
   display: grid;
   gap: 2.5rem;
-  padding: 3rem 0;
+  /* Chỉ set padding top/bottom, giữ nguyên padding left/right từ container */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  /* Đảm bảo grid căn chỉnh đúng với container */
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.footer__column--brand {
-  max-width: 360px;
+/* Responsive footer grid - 3 cột bằng nhau */
+@media (min-width: 768px) {
+  .footer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3rem;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+    /* Đảm bảo các cột căn chỉnh đúng và bằng nhau */
+    align-items: start;
+  }
 }
 
+@media (min-width: 1024px) {
+  .footer__grid {
+    gap: 4rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
 
+.footer__column {
+  width: 100%;
+  /* Đảm bảo các cột không có margin/padding riêng để căn chỉnh đúng */
+  margin: 0;
+  padding: 0;
+}
 
 .footer__brand {
   align-items: flex-start;
@@ -554,16 +654,8 @@ body.dark .btn--ghost:focus {
 }
 
 @media (min-width: 768px) {
-  .section {
-    padding: 4rem 0;
-  }
-
   .section__title {
     font-size: 1.75rem;
-  }
-
-  .hero-section {
-    padding: 5rem 0 4rem;
   }
 
   .hero-section__title {
@@ -590,10 +682,6 @@ body.dark .btn--ghost:focus {
     padding: 0.35rem 0.85rem;
     width: auto;
     text-align: center;
-  }
-
-  .footer__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
