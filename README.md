@@ -2,6 +2,9 @@
 
 Learnie là website luyện tiếng Anh theo chủ đề được phát triển cho môn **IE104 – Internet & Công nghệ Web** (UIT). Ứng dụng chạy hoàn toàn offline bằng **HTML5 + CSS3 + JavaScript thuần**, không dùng framework hay thư viện ngoài nhằm đáp ứng 100% tiêu chí của môn học.
 
+> [!TIP]
+> **Trải nghiệm thông qua: [Demo - Learnie](https://phuongnga205.github.io/IE104-Group1-StudyApp/)**
+
 ## 1. Mục tiêu & Phạm vi
 - Mang lại trải nghiệm tự học tiếng Anh qua quiz theo chủ đề quen thuộc (Ẩm thực, Du lịch, Công nghệ…).
 - Cung cấp hệ thống bộ lọc khóa học, quiz tính điểm, form liên hệ và dark mode phù hợp với rubric IE104.
