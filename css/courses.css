@@ -2,10 +2,12 @@
   File: courses.css
   Mô tả: Kiểu dáng cho danh sách chủ đề khóa học Learnie.
   Người thực hiện: Trần Thị Hoàng Nhung
-  Ngày cập nhật: 8/11/2025
+  Ngày cập nhật: 12/11/2025
 */
 
-/* ===== COURSE LIST ===== */
+/* ===== COURSE LIST (DANH SÁCH KHÓA HỌC) ===== */
+
+/* Căn lề chung cho khu vực và tiêu đề chính */
 .section--courses {
   text-align: left;
 }
@@ -17,6 +19,7 @@
   text-align: center;
 }
 
+/* Khung chính bao bọc toàn bộ thanh điều khiển (search, filter) */
 .course-controls {
   display: flex;
   flex-direction: column;
@@ -29,6 +32,7 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Lớp bọc các nút điều khiển chính (search, filter, sort) */
 .course-controls__primary {
   display: flex;
   align-items: center;
@@ -36,6 +40,7 @@
   gap: 0.75rem;
 }
 
+/* Thanh tìm kiếm chính */
 .course-search-bar {
   align-items: center;
   background-color: var(--color-surface);
@@ -43,12 +48,19 @@
   border-radius: 999px;
   color: var(--color-text);
   display: flex;
-  flex: 1 1 360px;
+  flex: 1 1 360px; /* Tự động co giãn, cơ sở 360px */
   gap: 0.6rem;
   padding: 0.6rem 0.95rem;
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
+/* Hiệu ứng (viền xanh) khi focus vào bất kỳ phần tử nào bên trong thanh tìm kiếm */
+.course-search-bar:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+/* Kiểu dáng cho icon và ô input bên trong thanh search */
 .course-search-bar__icon {
   color: var(--color-text-muted);
   font-size: 1rem;
@@ -63,6 +75,7 @@
   outline: none;
 }
 
+/* Nút hành động chung (dùng cho 'Lọc' và 'Sắp xếp') */
 .course-action-btn {
   align-items: center;
   background-color: var(--color-surface);
@@ -83,18 +96,30 @@
   line-height: 1;
 }
 
+/* Trạng thái hover/focus (khi di chuột hoặc dùng phím Tab) */
+.course-action-btn:hover,
+.course-action-btn:focus-visible {
+  background-color: var(--color-surface-alt);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  outline: none;
+}
+
+/* Trạng thái 'is-active' (khi đang được chọn hoặc panel đang mở) */
 .course-action-btn.is-active {
   background-color: rgba(37, 99, 235, 0.12);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
+/* Vị trí tương đối cho nút 'Lọc' để panel con hiện ra đúng chỗ */
 .course-filter {
   align-items: center;
   display: flex;
   position: relative;
 }
 
+/* Panel (bảng) bộ lọc, được ẩn/hiện bằng JS */
 .course-filter__panel {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -106,11 +131,12 @@
   padding: 1rem;
   position: absolute;
   right: 0;
-  top: calc(100% + 0.5rem);
-  width: min(420px, 90vw);
+  top: calc(100% + 0.5rem); /* Nằm ngay dưới nút 'Lọc', cách 0.5rem */
+  width: min(420px, 90vw); /* Rộng tối đa 420px, hoặc 90% nếu màn hình quá nhỏ */
   z-index: 12;
 }
 
+/* Trạng thái ẩn (do JS thêm/xóa) */
 .course-filter__panel[hidden] {
   display: none;
 }
@@ -120,11 +146,13 @@
   min-width: 0;
 }
 
+/* ===== COMPONENT: MULTI-SELECT (Dropdown đa lựa chọn) ===== */
 .multi-select {
   position: relative;
   width: 100%;
 }
 
+/* Nút bấm (trigger) để mở/đóng dropdown */
 .multi-select__trigger {
   align-items: center;
   background-color: var(--color-surface);
@@ -141,12 +169,22 @@
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
+/* Thêm icon mũi tên (▾) vào nút trigger */
 .multi-select__trigger::after {
   content: "▾";
   font-size: 0.85rem;
   opacity: 0.8;
 }
 
+/* Hiệu ứng hover/focus cho nút trigger */
+.multi-select__trigger:focus-visible,
+.multi-select__trigger:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  outline: none;
+}
+
+/* Panel chứa các lựa chọn (options), được định vị tuyệt đối */
 .multi-select__panel {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -154,17 +192,18 @@
   box-shadow: var(--shadow-md);
   left: 0;
   margin-top: 0.35rem;
-  max-height: 240px;
+  max-height: 240px; /* Giới hạn chiều cao, tự động có thanh cuộn */
   overflow-y: auto;
   position: absolute;
   width: 100%;
-  z-index: 22;
+  z-index: 22; /* Cao hơn panel filter (z-index: 12) */
 }
 
 .multi-select__panel[hidden] {
   display: none;
 }
 
+/* Kiểu dáng cho một lựa chọn (option) trong panel */
 .multi-select__option {
   align-items: center;
   background: none;
@@ -180,6 +219,7 @@
   width: 100%;
 }
 
+/* Tạo hộp checkbox tùy chỉnh (custom checkbox) bằng pseudo-element */
 .multi-select__option::after {
   content: "";
   border: 1px solid var(--color-border);
@@ -188,26 +228,39 @@
   width: 1rem;
 }
 
+/* Trạng thái đã chọn (hiển thị nền xanh và "dấu tick" giả) */
 .multi-select__option.is-selected::after {
   background-color: var(--color-accent);
   border-color: var(--color-accent);
-  box-shadow: inset 0 0 0 2px #fff;
+  box-shadow: inset 0 0 0 2px #fff; /* "Dấu tick" giả bằng box-shadow */
 }
 
+/* Hiệu ứng hover/focus cho từng option */
+.multi-select__option:hover,
+.multi-select__option:focus-visible {
+  background-color: var(--color-surface-alt);
+  outline: none;
+}
+
+/* ===== COMPONENT: RANGE SLIDER (Thanh trượt điểm) ===== */
+
+/* Khung viền bao bọc thanh trượt (fieldset) */
 .filters-range {
   border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 0.75rem 1rem 1rem;
 }
 
+/* Vị trí tương đối để chứa 2 thanh input và track */
 .range {
   position: relative;
   height: 36px;
   margin-top: 0.5rem;
 }
 
+/* Thiết lập 2 thanh trượt (input[type=range]) chồng lên nhau */
 .range__input {
-  pointer-events: none;
+  pointer-events: none; /* Chỉ cho phép tương tác với nút trượt (thumb) */
   position: absolute;
   left: 0;
   top: 0;
@@ -218,6 +271,7 @@
   height: 100%;
 }
 
+/* Kiểu dáng cho nút trượt (thumb) (cho Chrome/Safari và Firefox) */
 .range__input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -228,10 +282,10 @@
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
   cursor: pointer;
-  pointer-events: all;
+  pointer-events: all; /* Cho phép click vào nút trượt */
   transition: transform 0.2s ease;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Nằm trên thanh track và fill */
 }
 
 .range__input::-moz-range-thumb {
@@ -249,6 +303,13 @@
   z-index: 2;
 }
 
+/* Hiệu ứng focus cho nút trượt */
+.range__input:focus-visible::-webkit-slider-thumb,
+.range__input:focus-visible::-moz-range-thumb {
+  transform: scale(1.1);
+}
+
+/* Thanh 'rãnh' (track) màu xám nền */
 .range__track {
   background-color: var(--color-border);
   border-radius: 999px;
@@ -258,9 +319,10 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 0;
+  z-index: 0; /* Nằm dưới cùng */
 }
 
+/* Thanh 'fill' (màu xanh lá) thể hiện khoảng đã chọn */
 .range__fill {
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent-alt));
   border-radius: inherit;
@@ -269,9 +331,10 @@
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 1; /* Nằm trên track, dưới thumb */
 }
 
+/* Bọc các nhãn (label) 0 - 100 */
 .range__labels {
   align-items: center;
   display: flex;
@@ -282,6 +345,7 @@
   margin-top: 0.75rem;
 }
 
+/* Nút 'Xóa khoảng điểm' */
 .range__clear {
   background: none;
   border: none;
@@ -291,6 +355,13 @@
   text-decoration: underline;
 }
 
+.range__clear:hover,
+.range__clear:focus-visible {
+  color: var(--color-accent-alt);
+  outline: none;
+}
+
+/* Tắt hiệu ứng (transition) nếu người dùng yêu cầu */
 @media (prefers-reduced-motion: reduce) {
   .range__input::-webkit-slider-thumb,
   .range__input::-moz-range-thumb,
@@ -299,6 +370,7 @@
   }
 }
 
+/* Nút 'Đặt lại bộ lọc' và canh lề */
 .course-filter__actions {
   display: flex;
   justify-content: flex-end;
@@ -316,10 +388,20 @@
   transition: border-color var(--transition-base), color var(--transition-base), box-shadow var(--transition-base);
 }
 
+.course-filter__reset:hover,
+.course-filter__reset:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+  color: var(--color-accent);
+  outline: none;
+}
+
+/* ===== COMPONENT: SORT (Sắp xếp) ===== */
 .course-sort {
   position: relative;
 }
 
+/* Menu dropdown chứa các tùy chọn sắp xếp */
 .course-sort__menu {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -340,6 +422,7 @@
   display: none;
 }
 
+/* Một tùy chọn sắp xếp (ví dụ: Tên A-Z) */
 .course-sort__option {
   background: none;
   border: none;
@@ -352,11 +435,20 @@
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
+.course-sort__option:hover,
+.course-sort__option:focus-visible {
+  background-color: rgba(37, 99, 235, 0.12);
+  color: var(--color-accent);
+  outline: none;
+}
+
+/* Trạng thái active khi tùy chọn đang được áp dụng */
 .course-sort__option.is-active {
   background-color: rgba(37, 99, 235, 0.18);
   color: var(--color-accent);
 }
 
+/* ===== COMPONENT: KEYWORDS (Từ khóa gợi ý) ===== */
 .course-keywords {
   align-items: center;
   display: flex;
@@ -371,6 +463,7 @@
   margin-right: 0.25rem;
 }
 
+/* Nút bấm (pill) cho một từ khóa gợi ý */
 .course-keyword {
   background-color: var(--color-surface);
   border: 1px solid transparent;
@@ -383,11 +476,21 @@
   transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
+.course-keyword:hover,
+.course-keyword:focus-visible {
+  background-color: rgba(37, 99, 235, 0.12);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  outline: none;
+}
+
+/* Trạng thái active khi từ khóa đang được chọn */
 .course-keyword.is-active {
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-alt));
   color: #fff;
 }
 
+/* Lớp bọc chung cho một trường lọc (gồm label và input) */
 .course-field {
   display: flex;
   flex-direction: column;
@@ -402,6 +505,7 @@
   margin-bottom: 0.4rem;
 }
 
+/* (Không dùng) Kiểu dáng cho select <select> mặc định (nếu cần) */
 .course-select {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -412,6 +516,13 @@
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
+.course-select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  outline: none;
+}
+
+/* Dòng text tóm tắt kết quả (ví dụ: Tìm thấy 5/40) */
 .course-results {
   color: var(--color-text-muted);
   font-size: 0.95rem;
@@ -419,11 +530,13 @@
   margin-bottom: 1rem;
 }
 
+/* Lưới (grid) chứa tất cả các thẻ khóa học */
 .course-list {
   display: grid;
   gap: 1.5rem;
 }
 
+/* Trạng thái "không tìm thấy" khi bộ lọc không có kết quả */
 .course-empty {
   background-color: var(--color-surface-alt);
   border: 1px dashed var(--color-border);
@@ -434,6 +547,11 @@
   text-align: center;
 }
 
+/* ===== COMPONENT: COURSE CARD (Thẻ khóa học) ===== */
+
+/* Kiểu dáng tổng thể cho một thẻ (card) */
+/* QUY TẮC 4: min-width đủ lớn để chứa "Điểm cao nhất: 100/100" + nút "Làm quiz" trên 1 hàng */
+/* Tính toán: padding (1.5rem x 2 = 3rem) + text (~180px) + gap (0.75rem) + nút (~120px) = ~330px */
 .course-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -442,16 +560,25 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  min-width: 330px; /* QUY TẮC 4: Đủ rộng để chứa footer trên 1 hàng */
   overflow: hidden;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
+/* Hiệu ứng (nâng lên, đổ bóng) khi di chuột vào card */
+.course-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-6px);
+}
+
+/* Khung chứa ảnh thumbnail (để giữ chiều cao 180px) */
 .course-card__thumb {
   height: 180px;
   overflow: hidden;
   position: relative;
 }
 
+/* Đảm bảo ảnh thumbnail lấp đầy khung (object-fit) */
 .course-card__media,
 .course-card__media img {
   display: block;
@@ -465,12 +592,16 @@
   position: absolute;
 }
 
+/* Phần thân (body) chứa nội dung text của card */
+/* QUY TẮC 1: flex-grow: 1 để đẩy footer xuống đáy card */
 .course-card__body {
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Đẩy footer xuống dưới cùng để các nút căn thẳng hàng */
   padding: 1.5rem;
 }
 
+/* Bọc các nhãn (badge) danh mục và độ khó */
 .course-card__meta {
   align-items: center;
   display: flex;
@@ -479,6 +610,7 @@
   margin-bottom: 0.75rem;
 }
 
+/* Nhãn (badge) cho Danh mục (vd: Ẩm thực) */
 .course-card__category {
   background-color: var(--color-overlay);
   border-radius: 999px;
@@ -490,6 +622,7 @@
   letter-spacing: 0.05em;
 }
 
+/* Kiểu dáng badge chung */
 .course-card__badge {
   background-color: rgba(37, 99, 235, 0.12);
   border-radius: 999px;
@@ -499,16 +632,19 @@
   padding: 0.3rem 0.75rem;
 }
 
+/* Biến thể màu sắc cho badge (Sắp ra mắt) */
 .course-card__badge--upcoming {
   background-color: rgba(148, 163, 184, 0.22);
   color: var(--color-text-muted);
 }
 
+/* Biến thể màu sắc cho badge (Độ khó) */
 .course-card__badge--difficulty {
   background-color: rgba(16, 185, 129, 0.15);
   color: var(--color-accent-alt);
 }
 
+/* Tinh chỉnh màu badge cho Dark Mode */
 body.dark .course-card__best-score {
   color: rgba(96, 165, 250, 0.95);
 }
@@ -528,6 +664,7 @@ body.dark .course-card__badge--upcoming {
   color: rgba(226, 232, 240, 0.8);
 }
 
+/* Tiêu đề và mô tả của card */
 .course-card__title {
   color: var(--color-text);
   font-size: 1.1rem;
@@ -537,33 +674,42 @@ body.dark .course-card__badge--upcoming {
 .course-card__description {
   font-size: 0.95rem;
   margin-top: 0.5rem;
-  min-height: 3.6rem;
+  min-height: 3.6rem; /* Giữ 2 dòng chiều cao cố định */
 }
 
+/* Phần chân (footer) của card (chứa điểm và nút) */
+/* QUY TẮC 2 & 3: flex-wrap: nowrap để không bao giờ xuống dòng, căn lề 2 phía */
 .course-card__footer {
   align-items: center;
   display: flex;
+  flex-wrap: nowrap; /* QUY TẮC 2: Không bao giờ xuống dòng */
   gap: 0.75rem;
-  justify-content: space-between;
-  margin-top: auto;
+  margin-top: auto; /* Đẩy footer xuống cuối card */
 }
 
+/* Text hiển thị điểm cao nhất */
+/* QUY TẮC 3: white-space: nowrap để text không tự vỡ, căn lề trái */
 .course-card__best-score {
   color: var(--color-accent);
   font-size: 0.95rem;
   font-weight: 600;
+  white-space: nowrap; /* QUY TẮC 3: Giữ chữ không tự vỡ, căn lề trái */
 }
 
+/* Text ghi chú (sắp ra mắt) */
 .course-card__note {
   color: var(--color-text-muted);
   font-size: 0.9rem;
   font-style: italic;
 }
 
+/* QUY TẮC 3: margin-left: auto để đẩy nút về lề phải */
 .course-card__actions {
-  flex-shrink: 0;
+  flex-shrink: 0; /* Nút không được co lại */
+  margin-left: auto; /* QUY TẮC 3: Tự động chiếm không gian trống, đẩy nút về lề phải */
 }
 
+/* Nút 'Làm quiz' */
 .course-card__btn {
   align-items: center;
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-alt));
@@ -579,11 +725,56 @@ body.dark .course-card__badge--upcoming {
   transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
 }
 
+.course-card__btn:hover,
+.course-card__btn:focus-visible {
+  box-shadow: var(--shadow-sm);
+  opacity: 0.9;
+  outline: none;
+  transform: translateY(-2px);
+}
+
 .course-card__btn-icon {
   font-size: 1rem;
 }
 
+/* Kiểu dáng cho card bị vô hiệu hóa (sắp ra mắt) */
 .course-card--inactive {
   cursor: default;
   opacity: 0.85;
+}
+
+/* Tắt hiệu ứng hover khi card bị vô hiệu hóa */
+.course-card--inactive:hover {
+  box-shadow: var(--shadow-sm);
+  transform: none;
+}
+
+.course-card--inactive:focus-visible {
+  outline: none;
+}
+
+/* ===== RESPONSIVE (Tương thích thiết bị) ===== */
+
+/* Responsive: Chia 2 cột cho màn hình > 640px (Tablet) */
+@media (min-width: 640px) {
+  .course-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  /* QUY TẮC 4: Trên tablet vẫn phải đảm bảo min-width để footer không vỡ */
+  .course-card {
+    min-width: 330px;
+  }
+}
+
+/* Responsive: Chia 3 cột cho màn hình > 1024px (Desktop) */
+@media (min-width: 1024px) {
+  .course-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  /* QUY TẮC 4: Trên desktop vẫn phải đảm bảo min-width để footer không vỡ */
+  .course-card {
+    min-width: 330px;
+  }
 }

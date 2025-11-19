@@ -1,7 +1,9 @@
-# IE104-Group1-StudyApp
 # Learnie – IE104 Web Project
 
 Learnie là website luyện tiếng Anh theo chủ đề được phát triển cho môn **IE104 – Internet & Công nghệ Web** (UIT). Ứng dụng chạy hoàn toàn offline bằng **HTML5 + CSS3 + JavaScript thuần**, không dùng framework hay thư viện ngoài nhằm đáp ứng 100% tiêu chí của môn học.
+
+> [!TIP]
+> **Trải nghiệm thông qua: [Demo - Learnie](https://phuongnga205.github.io/IE104-Group1-StudyApp/)**
 
 ## 1. Mục tiêu & Phạm vi
 - Mang lại trải nghiệm tự học tiếng Anh qua quiz theo chủ đề quen thuộc (Ẩm thực, Du lịch, Công nghệ…).
@@ -46,3 +48,52 @@ Learnie/
 ├── audio/                # Âm thanh quiz (đúng/sai/hoàn thành)
 └── README.md
 ```
+
+## 4. Tính năng nổi bật
+- 🌙 **Dark Mode**: Toggle lưu trạng thái vào `localStorage`, đồng bộ `aria-pressed`.
+- 📚 **Danh sách khóa học**: 40 chủ đề, 6 chủ đề có nội dung; bộ lọc đa lựa chọn theo danh mục, trình độ, trạng thái, khoảng điểm.
+- 🧠 **Bộ lọc nâng cao**: Custom multi-select + slider 2 đầu (0–100) cho phép kết hợp nhiều điều kiện cùng lúc mà không dùng thư viện ngoài.
+- 🎯 **Quiz**: Mỗi chủ đề có 5 câu (3 trắc nghiệm + 2 điền từ); tính điểm 100 cho mọi số câu, hiển thị kết quả mới + điểm cao nhất.
+- 🏅 **Lưu điểm cá nhân**: `localStorage` ghi lại best score per topic (`bestScore_<topicId>`), hiển thị ngay trên thẻ khóa học.
+- 📩 **Form liên hệ**: Kiểm tra tên/email/nội dung, lưu bản ghi vào `learnie.contacts` cho mục đích demo.
+- ♿ **A11y cơ bản**: Heading rõ ràng, focus ring cho button/link, slider có nhãn động, nav dùng `aria-label`.
+- 📱 **Responsive**: Thiết kế tối ưu cho mobile ≥360px, tablet và desktop; dùng CSS variable + media query.
+
+## 5. Quy ước đặt tên & format
+- **HTML/CSS**: class theo BEM/kebab (`course-card__title`, `quiz-option-btn--correct`), file dùng kebab-case.
+- **JavaScript**: camelCase cho biến/hàm, hằng số UPPER_SNAKE_CASE (`MAX_SCORE`, `THEME_STORAGE_KEY`). Hàm đặt tên dạng động từ + bổ ngữ (`renderCourseCatalog`, `handleScoreRangeChange`).
+- **Comment**: Header ở mỗi CSS/JS mô tả mục đích + người phụ trách; chèn inline comment khi logic khó hiểu.
+- **Lint thủ công**: giữ indent 2 spaces (HTML/CSS) và 2 spaces (JS), không trailing whitespace, dòng ≤120 ký tự.
+
+## 6. Hướng dẫn chạy & kiểm tra
+1. Bật trình duyệt hiện đại (Chrome ≥ 110, Edge, Firefox) và mở file `index.html` bằng `file://` (không cần server).
+2. Đi qua flow đề xuất: `Trang chủ → Khóa học → chọn chủ đề (Food) → Làm quiz → Quay về Khóa học → Liên hệ → Giới thiệu`.
+3. Kiểm tra dark mode, bộ lọc đa lựa chọn và slider điểm ở trang Khóa học.
+4. Nếu muốn reset dữ liệu demo, mở DevTools → `localStorage.clear()`.
+
+### Kiểm thử thủ công
+- Desktop 1440px & 1024px; Tablet 768px; Mobile 414px.
+- Dùng bàn phím Tab/Shift+Tab để đảm bảo focus ở nav, button, multi-select.
+- Dùng combo phím `Enter/Space` trong quiz để kiểm tra phím tắt.
+
+## 7. Dữ liệu & lưu trữ
+- **Khoá học**: danh sách 40 entry trong `js/courses.js` (6 có sẵn, còn lại `available: false`).
+- **Quiz bank**: đối tượng `quizBank` trong `js/quiz.js` – mỗi chủ đề 5 câu, đáp án & giải thích tiếng Anh/VN.
+- **LocalStorage keys**:
+  - `learnie.theme`: trạng thái dark/light.
+  - `bestScore_<topicId>`: điểm cao nhất theo chủ đề.
+  - `learnie.contacts`: mảng JSON thông tin liên hệ demo.
+
+## 8. Định hướng phát triển
+- Tách dữ liệu khóa học & quiz sang JSON để dễ cập nhật.
+- Bổ sung CHANGELOG + ADR ngắn cho các quyết định kỹ thuật.
+- Viết unit test nhẹ cho logic quiz và bộ lọc (nếu được phép dùng tooling).
+
+## 9. Thành viên nhóm
+| STT | Họ và tên | MSSV |
+|-----|-----------|------|
+| 1 | Lê Ngọc Phương Nga | 23520992 |
+| 2 | Trần Thị Hoàng Nhung | 23521131 |
+| 3 | Nguyễn Đặng Quang Phúc | 23521204 |
+
+> *Mọi câu hỏi liên hệ qua `contact@learnie.vn` hoặc form Liên hệ trong dự án. *

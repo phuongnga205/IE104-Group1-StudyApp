@@ -74,6 +74,7 @@ function initFeatureCarousel() {
   }
 
   const cardSelector = ".feature-card";
+  const cards = Array.from(track.querySelectorAll(cardSelector));
 
   // Nếu không có thẻ tính năng nào thì không cần slider
   if (!track.querySelector(cardSelector)) {
@@ -353,10 +354,71 @@ function initFeatureCarousel() {
   
   // Khởi tạo carousel ngay lần đầu
   syncMetrics();
+  updatePagination(); // Note: Khởi tạo pagination dots
   startAutoSlide();
+}
+
+// Xử lý hamburger menu cho mobile
+function initMobileMenu() {
+  const menuToggle = document.getElementById("menuToggle");
+  const mainNav = document.getElementById("mainNav");
+
+  if (!menuToggle || !mainNav) {
+    return;
+  }
+
+  // Toggle menu khi click vào hamburger button
+  menuToggle.addEventListener("click", () => {
+    const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+    const newState = !isExpanded;
+
+    menuToggle.setAttribute("aria-expanded", String(newState));
+    mainNav.setAttribute("aria-expanded", String(newState));
+  });
+
+  // Đóng menu khi click vào link navigation
+  const navLinks = mainNav.querySelectorAll(".main-nav__link");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      menuToggle.setAttribute("aria-expanded", "false");
+      mainNav.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Đóng menu khi click ra ngoài (chỉ trên mobile)
+  document.addEventListener("click", (event) => {
+    const isMobile = window.innerWidth <= 767;
+    if (!isMobile) {
+      return;
+    }
+
+    const isClickInsideNav = mainNav.contains(event.target);
+    const isClickOnToggle = menuToggle.contains(event.target);
+
+    if (!isClickInsideNav && !isClickOnToggle) {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      if (isExpanded) {
+        menuToggle.setAttribute("aria-expanded", "false");
+        mainNav.setAttribute("aria-expanded", "false");
+      }
+    }
+  });
+
+  // Đóng menu khi nhấn phím Escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      if (isExpanded) {
+        menuToggle.setAttribute("aria-expanded", "false");
+        mainNav.setAttribute("aria-expanded", "false");
+        menuToggle.focus();
+      }
+    }
+  });
 }
 
 // Gắn sự kiện khi cuộn và chạy ngay khi trang load xong
 window.addEventListener("scroll", handleRevealOnScroll);
 handleRevealOnScroll();
 initFeatureCarousel();
+initMobileMenu();

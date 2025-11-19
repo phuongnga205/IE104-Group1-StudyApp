@@ -15,11 +15,18 @@
       <a class="site-header__brand" href="index.html" aria-label="Learnie">
         <img class="brand-logo-image" src="images/icons/Learnie_logo.svg" alt="" aria-hidden="true" loading="lazy" width="426" height="143" />
       </a>
-      <nav class="main-nav" aria-label="Điều hướng chính">
-        <a class="main-nav__link" href="index.html">Trang chủ</a>
-        <a class="main-nav__link main-nav__link--active" href="courses.html">Khóa học</a>
-        <a class="main-nav__link" href="about.html">Về chúng tôi</a>
-        <a class="main-nav__link" href="contact.html">Liên hệ</a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mainNav">
+        <span class="menu-toggle__icon">
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+        </span>
+      </button>
+      <nav class="main-nav" id="mainNav" aria-label="Điều hướng chính">
+        <a class="main-nav__link" href="index.html">Trang&nbsp;chủ</a>
+        <a class="main-nav__link main-nav__link--active" href="courses.html">Khóa&nbsp;học</a>
+        <a class="main-nav__link" href="about.html">Về&nbsp;chúng&nbsp;tôi</a>
+        <a class="main-nav__link" href="contact.html">Liên&nbsp;hệ</a>
       </nav>
       <div class="site-header__actions">
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Đổi giao diện">🌙</button>
@@ -30,54 +37,54 @@
   <main>
     <section class="hero-section hero-section--sub reveal">
       <div class="hero-section__inner container">
-        <h1 class="hero-section__title">Khám phá các chủ đề học tiếng&nbsp;Anh</h1>
-        <p class="hero-section__description">Học qua các chủ đề thú vị, từ cơ bản đến nâng cao – theo dõi tiến độ và quay lại ôn tập dễ dàng.</p>
+        <h1 class="hero-section__title">Khám phá các chủ&nbsp;đề học tiếng&nbsp;Anh</h1>
+        <p class="hero-section__description">Học qua các chủ&nbsp;đề thú vị, từ cơ bản đến nâng cao – theo&nbsp;dõi tiến&nbsp;độ và quay&nbsp;lại ôn tập dễ dàng.</p>
       </div>
     </section>
 
     <section class="section section--courses reveal">
       <div class="container">
         <div class="section__heading">
-          <h2 class="section__title">Tất cả chủ đề</h2>
-          <p class="section__description">Chọn chủ đề bạn yêu thích để bắt đầu học ngay.</p>
+          <h2 class="section__title">Tất cả chủ&nbsp;đề</h2>
+          <p class="section__description">Chọn chủ&nbsp;đề bạn yêu thích để bắt&nbsp;đầu học ngay.</p>
         </div>
 
         <div class="course-controls">
           <div class="course-controls__primary">
-            <label class="visually-hidden" for="courseSearch">Tìm kiếm chủ đề</label>
+            <label class="visually-hidden" for="courseSearch">Tìm&nbsp;kiếm chủ&nbsp;đề</label>
             <div class="course-search-bar">
               <span class="course-search-bar__icon" aria-hidden="true">🔍</span>
-              <input class="course-search-bar__input" type="search" id="courseSearch" name="courseSearch" placeholder="Tìm kiếm chủ đề (ví dụ: du lịch, công nghệ...)" autocomplete="off" />
+              <input class="course-search-bar__input" type="search" id="courseSearch" name="courseSearch" placeholder="Tìm&nbsp;kiếm chủ&nbsp;đề (ví dụ: du lịch, Công&nbsp;nghệ...)" autocomplete="off" />
             </div>
             <div class="course-filter">
               <button class="course-action-btn course-filter__toggle" id="courseFilterToggle" type="button" aria-expanded="false" aria-controls="courseFilters">
                 <span class="course-action-btn__icon" aria-hidden="true">⚙️</span>
                 <span class="course-action-btn__label">Lọc</span>
               </button>
-              <form class="course-filter__panel" id="courseFilters" aria-label="Bộ lọc chủ đề" hidden>
+              <form class="course-filter__panel" id="courseFilters" aria-label="Bộ&nbsp;lọc chủ&nbsp;đề" hidden>
                 <div class="course-field">
-                  <label class="course-field__label" id="courseCategoryLabel">Danh mục</label>
+                  <label class="course-field__label" id="courseCategoryLabel">Danh&nbsp;mục</label>
                   <div class="multi-select" id="courseCategoryMulti" aria-labelledby="courseCategoryLabel">
-                    <button class="multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">Tất cả Danh mục</button>
+                    <button class="multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">Tất&nbsp;cả Danh&nbsp;mục</button>
                     <div class="multi-select__panel" role="listbox" aria-multiselectable="true" hidden></div>
                   </div>
                 </div>
                 <div class="course-field">
-                  <label class="course-field__label" id="courseDifficultyLabel">Trình độ</label>
+                  <label class="course-field__label" id="courseDifficultyLabel">Trình&nbsp;độ</label>
                   <div class="multi-select" id="courseDifficultyMulti" aria-labelledby="courseDifficultyLabel">
-                    <button class="multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">Tất cả Trình độ</button>
+                    <button class="multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">Tất&nbsp;cả Trình&nbsp;độ</button>
                     <div class="multi-select__panel" role="listbox" aria-multiselectable="true" hidden></div>
                   </div>
                 </div>
                 <div class="course-field">
-                  <label class="course-field__label" id="courseStatusLabel">Trạng thái</label>
+                  <label class="course-field__label" id="courseStatusLabel">Trạng&nbsp;thái</label>
                   <div class="multi-select" id="courseStatusMulti" aria-labelledby="courseStatusLabel">
-                    <button class="multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">Tất cả Chủ đề</button>
+                    <button class="multi-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false">Tất&nbsp;cả Chủ&nbsp;đề</button>
                     <div class="multi-select__panel" role="listbox" aria-multiselectable="true" hidden></div>
                   </div>
                 </div>
                 <fieldset class="filters-range">
-                  <legend class="course-field__label">Khoảng điểm</legend>
+                  <legend class="course-field__label">Khoảng&nbsp;điểm</legend>
                   <div class="range" id="scoreRange">
                     <input id="scoreMin" class="range__input" type="range" min="0" max="100" step="5" value="0" aria-label="Điểm tối thiểu" />
                     <input id="scoreMax" class="range__input" type="range" min="0" max="100" step="5" value="100" aria-label="Điểm tối đa" />
@@ -89,23 +96,23 @@
                     <span id="scoreMinLabel">0</span>
                     <span aria-hidden="true">–</span>
                     <span id="scoreMaxLabel">100</span>
-                    <button id="clearScoreRange" class="range__clear" type="button">Xóa khoảng điểm</button>
+                    <button id="clearScoreRange" class="range__clear" type="button">Xóa khoảng&nbsp;điểm</button>
                   </div>
                 </fieldset>
                 <div class="course-filter__actions">
-                  <button class="course-filter__reset" type="button" id="courseFilterReset">Đặt lại bộ lọc</button>
+                  <button class="course-filter__reset" type="button" id="courseFilterReset">Đặt&nbsp;lại bộ&nbsp;lọc</button>
                 </div>
               </form>
             </div>
             <div class="course-sort">
               <button class="course-action-btn" id="courseSortToggle" type="button" aria-expanded="false" aria-controls="courseSortMenu">
                 <span class="course-action-btn__icon" aria-hidden="true">⇅</span>
-                <span class="course-action-btn__label" id="courseSortSelectedLabel">Sắp xếp</span>
+                <span class="course-action-btn__label" id="courseSortSelectedLabel">Sắp&nbsp;xếp</span>
               </button>
               <div class="course-sort__menu" id="courseSortMenu" hidden>
                 <button class="course-sort__option" type="button" data-sort="default">Mặc định</button>
-                <button class="course-sort__option" type="button" data-sort="difficulty-asc">Trình độ: dễ → khó</button>
-                <button class="course-sort__option" type="button" data-sort="difficulty-desc">Trình độ: khó → dễ</button>
+                <button class="course-sort__option" type="button" data-sort="difficulty-asc">Trình&nbsp;độ: dễ → khó</button>
+                <button class="course-sort__option" type="button" data-sort="difficulty-desc">Trình&nbsp;độ: khó → dễ</button>
                 <button class="course-sort__option" type="button" data-sort="title-asc">Tên A → Z</button>
                 <button class="course-sort__option" type="button" data-sort="title-desc">Tên Z → A</button>
                 <button class="course-sort__option" type="button" data-sort="score-asc">Điểm thấp → cao</button>
@@ -128,16 +135,16 @@
       <div class="footer__column footer__column--brand">
         <div class="footer__brand">
           <img class="footer__brand-logo" src="images/icons/Learnie_logo.svg" alt="Learnie" loading="lazy" width="426" height="143" />
-          <p class="footer__description">Học tiếng&nbsp;Anh thông minh hơn, dễ hơn và vui hơn.</p>
+          <p class="footer__description">Học tiếng&nbsp;Anh thông&nbsp;minh&nbsp;hơn, dễ&nbsp;hơn và vui&nbsp;hơn.</p>
         </div>
       </div>
       <div class="footer__column">
         <h3 class="footer__heading">Liên kết nhanh</h3>
         <ul class="footer__links">
-          <li><a class="footer__link" href="index.html">Trang chủ</a></li>
-          <li><a class="footer__link" href="courses.html">Khóa học</a></li>
-          <li><a class="footer__link" href="about.html">Về chúng tôi</a></li>
-          <li><a class="footer__link" href="contact.html">Liên hệ</a></li>
+          <li><a class="footer__link" href="index.html">Trang&nbsp;chủ</a></li>
+          <li><a class="footer__link" href="courses.html">Khóa&nbsp;học</a></li>
+          <li><a class="footer__link" href="about.html">Về&nbsp;chúng&nbsp;tôi</a></li>
+          <li><a class="footer__link" href="contact.html">Liên&nbsp;hệ</a></li>
         </ul>
       </div>
       <div class="footer__column">

@@ -29,7 +29,13 @@
   gap: 2rem;
 }
 
-/* Note: Khi chỉ có 1 card thì canh giữa theo chiều ngang */
+/* Note: Khi chỉ có quiz card (đang làm quiz), căn giữa và làm card rộng hơn */
+.quiz-wrapper--quiz-only {
+  display: flex;
+  justify-content: center;
+}
+
+/* Note: Khi chỉ có 1 card (kết quả) thì canh giữa theo chiều ngang */
 .quiz-wrapper--single {
   display: flex;
   justify-content: center;
@@ -46,6 +52,12 @@
   transition: transform var(--transition-base);
 }
 
+/* Note: Khi quiz card đứng một mình (không có kết quả bên cạnh), làm nó rộng hơn để dễ đọc */
+.quiz-wrapper--quiz-only .quiz-card {
+  max-width: 700px;
+  width: 100%;
+}
+
 .quiz-card__meta {
   align-items: center;
   display: flex;
@@ -53,11 +65,14 @@
   margin-bottom: 1.5rem;
 }
 
-/* Note: Dòng progress/score mờ để không lấn át câu hỏi */
+/* Note: Làm nổi bật thông tin tiến độ để người dùng dễ theo dõi */
 .quiz-card__progress,
 .quiz-card__score {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* Note: Font đậm giúp câu hỏi là trọng tâm */
@@ -211,12 +226,18 @@
 }
 
 /* Note: Kết quả thiết kế dạng card trung tâm */
+/* Note: Ẩn mặc định khi đang làm quiz, chỉ hiện khi hoàn thành */
 .quiz-result {
   align-items: center;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 0.75rem;
   text-align: center;
+}
+
+/* Note: Hiển thị khi quiz hoàn thành */
+.quiz-result--visible {
+  display: flex;
 }
 
 .quiz-result__title {
@@ -321,20 +342,37 @@ body.dark .quiz-option-btn--correct {
 
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
-  /* Note: Từ tablet trở lên bật 2 cột: câu hỏi + bảng kết quả */
-  .quiz-wrapper {
+  /* Note: Từ tablet trở lên bật 2 cột: câu hỏi + bảng kết quả (chỉ khi có cả 2) */
+  .quiz-wrapper:not(.quiz-wrapper--quiz-only):not(.quiz-wrapper--single) {
     grid-template-columns: minmax(0, 1fr) 360px;
     align-items: start;
   }
 
-  /* Note: Card kết quả giữ vị trí khi cuộn */
-  .quiz-result {
+  /* Note: Card kết quả giữ vị trí khi cuộn (chỉ khi hiển thị) */
+  .quiz-result--visible {
     position: sticky;
     top: 120px;
   }
 
+  /* Note: Khi chỉ có quiz card, căn giữa và giới hạn độ rộng */
+  .quiz-wrapper--quiz-only {
+    display: flex;
+    justify-content: center;
+  }
+
+  .quiz-wrapper--quiz-only .quiz-card {
+    max-width: 700px;
+  }
+
+  /* Note: Khi chỉ có kết quả, căn giữa */
   .quiz-wrapper--single {
     display: flex;
+    justify-content: center;
+  }
+
+  .quiz-wrapper--single .quiz-result {
+    max-width: 500px;
+    width: 100%;
   }
 }
 body.dark .quiz-feedback--wrong {

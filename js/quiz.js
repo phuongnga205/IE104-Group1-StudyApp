@@ -280,16 +280,21 @@ const quizWrapperElement = document.querySelector(".quiz-wrapper");
 
 // Chuẩn bị âm thanh phản hồi cho quiz (đúng, sai, hoàn thành)
 const quizAudioPlayers = {
-  correct: createAudioPlayer("audio/quiz-correct.wav"),
-  wrong: createAudioPlayer("audio/quiz-wrong.wav"),
-  complete: createAudioPlayer("audio/quiz-complete.wav")
+  // Note: Giảm âm lượng âm thanh "đúng" xuống 70% để tránh bị giật mình.
+  correct: createAudioPlayer("audio/quiz-correct.wav", 0.7),
+  // Note: Âm thanh "sai" giữ ở mức tối đa 100% vì file gốc hơi nhỏ.
+  wrong: createAudioPlayer("audio/quiz-wrong.wav", 1.0),
+  // Note: Âm thanh "hoàn thành" ở mức 80% là vừa phải.
+  complete: createAudioPlayer("audio/quiz-complete.wav", 0.8)
 };
 
 // Note: Tạo sẵn Audio element để tránh delay khi người dùng trả lời
-function createAudioPlayer(sourcePath) {
+// Note: Thêm tham số volume để tùy chỉnh âm lượng cho từng loại âm thanh.
+function createAudioPlayer(sourcePath, volume = 1.0) {
   const audio = new Audio(sourcePath);
   audio.preload = "auto";
-  audio.volume = 1;
+  // Note: volume nhận giá trị từ 0.0 (tắt tiếng) đến 1.0 (to nhất).
+  audio.volume = volume;
   return audio;
 }
 
@@ -301,12 +306,17 @@ function playQuizSound(type) {
     return;
   }
 
-  try {
-    player.pause();
-    player.currentTime = 0;
-    player.play().catch(() => {});
-  } catch (error) {
-    console.warn("Không thể phát âm thanh quiz:", error);
+  // Note: Reset âm thanh về đầu trước khi phát lại để đảm bảo âm thanh luôn bắt đầu từ đầu.
+  player.currentTime = 0;
+  const playPromise = player.play();
+
+  // Note: Trình duyệt hiện đại trả về một Promise khi play(). Xử lý lỗi để tránh
+  // cảnh báo "Uncaught (in promise)" trên console, thường xảy ra khi người dùng
+  // chưa tương tác với trang và trình duyệt chặn tự động phát media.
+  if (playPromise !== undefined) {
+    playPromise.catch((error) => {
+      console.warn("Không thể tự động phát âm thanh quiz:", error);
+    });
   }
 }
 
@@ -328,7 +338,7 @@ function renderCurrentQuestion() {
   nextQuestionButton.classList.add("quiz-card__next--hidden");
   checkAnswerButton.disabled = false;
 
-  questionIndexElement.textContent = `Câu hỏi ${currentQuestionIndex + 1} / ${quizData.length}`;
+  questionIndexElement.textContent = `Câu\u00A0hỏi ${currentQuestionIndex + 1} / ${quizData.length}`;
   scoreElement.textContent = `Điểm: ${formatScore(totalScore)} / ${MAX_SCORE}`;
   questionTextElement.textContent = currentQuestion.question;
 
@@ -430,7 +440,7 @@ function handleCheckAnswer() {
 
     if (selectedChoiceIndex === null) {
       // Note: Bắt buộc người dùng chọn đáp án trước khi chấm
-      displayFeedback(false, "Hãy chọn đáp án trước khi kiểm tra.");
+      displayFeedback(false, "Hãy chọn đáp án trước khi kiểm\u00A0tra.");
       return;
     }
 
@@ -459,7 +469,7 @@ function handleCheckAnswer() {
     // Note: So sánh không phân biệt hoa thường để tránh bắt lỗi chính tả không cần thiết
     const userAnswer = inputField.value.trim().toLowerCase();
     if (!userAnswer) {
-      displayFeedback(false, "Hãy nhập câu trả lời trước khi kiểm tra.");
+      displayFeedback(false, "Hãy nhập câu\u00A0trả lời trước khi kiểm\u00A0tra.");
       return;
     }
 
@@ -495,7 +505,7 @@ function displayFeedback(isCorrect, explanationText) {
   feedbackElement.className = "quiz-feedback";
 
   const messageLine = document.createElement("div");
-  messageLine.textContent = isCorrect ? "Chính xác! ✅" : "Chưa đúng ❌";
+  messageLine.textContent = isCorrect ? "Chính\u00A0xác! ✅" : "Chưa\u00A0đúng ❌";
 
   const explanationLine = document.createElement("div");
   explanationLine.className = "quiz-feedback__explain";
@@ -510,7 +520,7 @@ function displayFeedback(isCorrect, explanationText) {
 function goToNextQuestion() {
   // Note: Bắt buộc kiểm tra câu hiện tại trước khi đổi để giữ flow học tập
   if (!hasCheckedCurrentQuestion) {
-    displayFeedback(false, "Hãy bấm Kiểm tra trước khi sang câu mới.");
+    displayFeedback(false, "Hãy bấm Kiểm\u00A0tra trước khi sang câu\u00A0mới.");
     return;
   }
 
@@ -525,9 +535,14 @@ function goToNextQuestion() {
 
 // Kết thúc quiz, cập nhật điểm cao nhất và hiện kết quả
 function finishQuiz() {
+  // Note: Ẩn card câu hỏi và hiển thị ô kết quả
   quizCardElement.hidden = true;
+  if (quizResultElement) {
+    quizResultElement.classList.add("quiz-result--visible");
+  }
   if (quizWrapperElement) {
-    // Note: Khi hoàn thành chỉ còn card kết quả nên ép layout single column
+    // Note: Khi hoàn thành chỉ còn card kết quả, xóa class quiz-only và thêm single
+    quizWrapperElement.classList.remove("quiz-wrapper--quiz-only");
     quizWrapperElement.classList.add("quiz-wrapper--single");
   }
   finalScoreElement.hidden = false;
@@ -535,7 +550,7 @@ function finishQuiz() {
   resultActionsElement.hidden = false;
 
   if (resultTitleElement) {
-    resultTitleElement.textContent = "Hoàn thành 🎉";
+    resultTitleElement.textContent = "Hoàn\u00A0thành 🎉";
   }
 
   finalScoreElement.textContent = `Điểm: ${formatScore(totalScore)} / ${MAX_SCORE}`;
@@ -548,7 +563,7 @@ function finishQuiz() {
   localStorage.setItem(bestKey, String(newBest));
 
   if (bestScoreElement) {
-    bestScoreElement.textContent = `Điểm cao nhất của bạn: ${formatScore(newBest)} / ${MAX_SCORE}`;
+    bestScoreElement.textContent = `Điểm\u00A0cao nhất của bạn: ${formatScore(newBest)} / ${MAX_SCORE}`;
   }
 
   playQuizSound("complete");
@@ -563,11 +578,15 @@ function restartQuiz() {
   hasCheckedCurrentQuestion = false;
   inputField = null;
 
+  // Note: Ẩn ô kết quả và hiển thị lại card câu hỏi
+  if (quizResultElement) {
+    quizResultElement.classList.remove("quiz-result--visible");
+  }
   quizCardElement.hidden = false;
-  showInitialResultPanel();
   if (quizWrapperElement) {
-    // Note: Bỏ class single để layout về trạng thái 2 cột như ban đầu
+    // Note: Bỏ class single và thêm quiz-only để căn giữa quiz card
     quizWrapperElement.classList.remove("quiz-wrapper--single");
+    quizWrapperElement.classList.add("quiz-wrapper--quiz-only");
   }
   renderCurrentQuestion();
 }
@@ -578,11 +597,11 @@ function showInitialResultPanel() {
   const storedBest = Number(localStorage.getItem(bestKey) || 0);
 
   if (resultTitleElement) {
-    resultTitleElement.textContent = "Điểm cao nhất";
+    resultTitleElement.textContent = "Điểm\u00A0cao nhất";
   }
 
   if (bestScoreElement) {
-    bestScoreElement.textContent = `Điểm cao nhất của bạn: ${formatScore(storedBest)} / ${MAX_SCORE}`;
+    bestScoreElement.textContent = `Điểm\u00A0cao nhất của bạn: ${formatScore(storedBest)} / ${MAX_SCORE}`;
   }
 
   if (finalScoreElement) {
@@ -624,9 +643,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Note: Trình tự khởi tạo: cập nhật tên chủ đề -> hiển thị điểm cao nhất -> render câu đầu
+  // Note: Trình tự khởi tạo: cập nhật tên chủ đề -> đảm bảo ô kết quả bị ẩn -> căn giữa quiz card -> render câu đầu
   updateTopicTitle();
-  showInitialResultPanel();
+  // Note: Đảm bảo ô kết quả bị ẩn khi bắt đầu làm quiz
+  if (quizResultElement) {
+    quizResultElement.classList.remove("quiz-result--visible");
+  }
+  // Note: Thêm class để căn giữa quiz card khi đang làm quiz
+  if (quizWrapperElement) {
+    quizWrapperElement.classList.remove("quiz-wrapper--single");
+    quizWrapperElement.classList.add("quiz-wrapper--quiz-only");
+  }
   renderCurrentQuestion();
 
   checkAnswerButton.addEventListener("click", handleCheckAnswer);
