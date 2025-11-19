@@ -2,10 +2,10 @@
   File: base.css
   Mô tả: Thiết lập biến, layout nền tảng, header, footer và thành phần chung cho Learnie.
   Người thực hiện: Lê Ngọc Phương Nga – 23521204
-  Ngày cập nhật: 09/11/2025 (Quang Phúc cập nhật 16/11/2025)
+  Ngày cập nhật: 19/11/2025
 */
 
-/* ===== VARIABLES ===== */
+/* ===== VARIABLES 7 DARK MODE ===== */
 :root {
   --color-surface: #ffffff;
   --color-surface-alt: #f8fafc;
@@ -35,7 +35,7 @@ body.dark {
   --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.6);
 }
 
-/* ===== GLOBAL RESET ===== */
+/* ===== GLOBAL RESET & CƠ BẢN ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -82,6 +82,7 @@ ul {
   width: 1px;
 }
 
+/* Khung căn giữa toàn site */
 .container {
   margin: 0 auto;
   max-width: var(--max-width);
@@ -114,6 +115,8 @@ ul {
   }
 }
 
+/* ===== TIÊU ĐỀ VÀ ĐOẠN VĂN ===== */
+
 h1, h2, h3, h4 {
   color: var(--color-text);
   font-family: var(--font-heading);
@@ -128,7 +131,8 @@ p {
   text-wrap: pretty;
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER & NAV ===== */
+/* Khung header */
 .site-header {
   position: sticky;
   top: 0;
@@ -142,6 +146,7 @@ body.dark .site-header {
   background-color: rgba(15, 23, 42, 0.85);
 }
 
+/* Layout header, logo */
 .site-header__navbar {
   align-items: center;
   display: flex;
@@ -231,6 +236,7 @@ body.dark .site-header {
   transform-origin: 50% 50%;
 }
 
+/* Nav links & theme toggle */
 .main-nav {
   align-items: center;
   display: flex;
