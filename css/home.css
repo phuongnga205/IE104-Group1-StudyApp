@@ -2,7 +2,7 @@
   File: home.css
   Mô tả: Kiểu dáng riêng cho trang chủ Learnie (hero, tính năng, chủ đề, newsletter, CTA).
   Người thực hiện: Lê Ngọc Phương Nga – 23520992
-  Ngày cập nhật: 08/11/2025
+  Ngày cập nhật: 19/11/2025
 */
 
 /* ===== HERO HOME ===== */
@@ -12,18 +12,21 @@
 
 /* ===== FEATURE CAROUSEL ===== */
 
+/* Container của slider, padding 2 bên, đặt nút mũi tên */
 .feature-carousel {
   --feature-gap: 1.25rem;
   padding: 0 clamp(1rem, 4vw, 3.25rem);
   position: relative;
 }
 
+/* Vùng nhìn thấy của slider, scroll ngang */
 .feature-carousel__viewport {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 0.25rem 0;
 }
 
+/* Các card tính năng, xếp flex và có gap */
 .feature-list {
   align-items: stretch;
   display: flex;
@@ -40,11 +43,13 @@
   list-style: none;
 }
 
+/* Bật chế độ ready tắt scroll kéo tay & xử lý overflow */
 .feature-carousel--ready .feature-carousel__viewport {
   overflow: hidden;
   scroll-snap-type: none;
 }
 
+/* Nút điều khiển Trước/Sau */
 .feature-carousel__control {
   align-items: center;
   background-color: var(--color-surface);
@@ -101,6 +106,7 @@
 }
 
 /* ===== PAGINATION DOTS ===== */
+/* Hiển thị các chấm tròn để biết slide đang di chuyển đến đâu */
 .feature-carousel__pagination {
   align-items: center;
   display: flex;
@@ -132,6 +138,7 @@
   width: 12px;
 }
 
+/* Làm đẹp thẻ tính năng */
 .feature-carousel .feature-card {
   flex: 0 0 calc((100% - (var(--feature-gap) * 2)) / 3);
   scroll-snap-align: start;
@@ -157,7 +164,7 @@
   transform: scale(1.03) translateY(-8px);
 }
 
-
+/* Định dạng icon tiêu đề và mô tả của các thẻ tính năng */
 .feature-card__figure {
   align-items: center;
   align-self: center;
@@ -195,6 +202,7 @@
 }
 
 /* ===== STATS ===== */
+/* Trình bày số liệu (người học, đánh giá, chủ đề) */
 .stats-list {
   display: grid;
   gap: 1.5rem;
@@ -259,6 +267,7 @@
   transform: translateY(-6px);
 }
 
+/* Hình nền và overlay chữ của topic */
 .topic-card__thumb {
   min-height: 160px;
   position: relative;
@@ -294,6 +303,7 @@
   z-index: 1;
 }
 
+/* Text và nút CTA */
 .topic-card__labels {
   display: flex;
   flex-direction: column;
@@ -337,6 +347,7 @@
   color: var(--color-accent-alt);
 }
 
+/* style riêng cho dark mode */
 body.dark .topic-card__cta {
   color: rgba(96, 165, 250, 0.95);
 }
@@ -426,10 +437,13 @@ body.dark .topic-card__cta:focus {
     flex: 1;
   }
 }
+
+/* Tắt transition khi cần */
 .feature-carousel__track--no-transition {
   transition: none !important;
 }
 
+/* Tăng tính accessibility */
 @media (prefers-reduced-motion: reduce) {
   .carousel,
   .feature-carousel {

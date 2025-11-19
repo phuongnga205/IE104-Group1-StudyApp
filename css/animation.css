@@ -2,20 +2,23 @@
   File: animation.css
   Mô tả: Quy định hiệu ứng reveal khi cuộn và các tiện ích animation.
   Người thực hiện: Lê Ngọc Phương Nga - 23520992
-  Ngày cập nhật: 12/11/2025
+  Ngày cập nhật: 19/11/2025
 */
 
+/* ===== REVEAL ON SCROLL ===== */
 .reveal {
   opacity: 0;
   transform: translateY(48px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
+/* Trạng thái đã hiện */
 .reveal--visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* ===== COMMON HOVER ANIMATIONS ===== */
 .btn,
 .feature-card,
 .topic-card,

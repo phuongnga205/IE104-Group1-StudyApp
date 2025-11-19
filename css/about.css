@@ -2,15 +2,17 @@
   File: about.css
   Mô tả: Kiểu dáng cho trang giới thiệu Learnie (câu chuyện, giá trị cốt lõi, đội ngũ).
   Người thực hiện: Lê Ngọc Phương Nga – 23520992
-  Ngày cập nhật: 12/11/2025
+  Ngày cập nhật: 19/11/2025
 */
 
 /* ===== HERO ABOUT ===== */
 .hero-section--about {
+  /* Nền gradient nhẹ để tạo cảm giác trang giới thiệu trang trọng hơn */
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.08));
 }
 
 .hero-section__eyebrow {
+  /* Nhãn nhỏ phía trên tiêu đề */
   color: var(--color-accent);
   font-size: 0.95rem;
   font-weight: 600;
@@ -20,30 +22,33 @@
 }
 
 .hero-section--about .hero-section__title {
+  /* Tiêu đề lớn, responsive */
   font-size: clamp(2rem, 3vw + 1.4rem, 2.6rem);
   margin-bottom: 1rem;
 }
 
 .hero-section--about .hero-section__description {
+  /* Đoạn mô tả dễ đọc hơn */
   font-size: 1.08rem;
 }
 
 /* ===== STORY ===== */
 .section--story {
-  text-align: left;
+  text-align: left; /* Story nên canh trái cho dễ đọc */
 }
 
 .story-grid {
   display: grid;
   gap: 2rem;
-  align-items: center;
+  align-items: center; /* Giữa hình với text theo chiều dọc */
 }
 
 .story-grid__content p + p {
-  margin-top: 1rem;
+  margin-top: 1rem; /* Khoảng cách giữa các đoạn văn */
 }
 
 .story-grid__media {
+  /* Khung ảnh đẹp + bo góc + bóng nhẹ */
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
@@ -58,7 +63,7 @@
 
 /* ===== CORE VALUES ===== */
 .section--values {
-  background-color: var(--color-surface-alt);
+  background-color: var(--color-surface-alt); /* Block khác màu */
 }
 
 .value-grid {
@@ -68,6 +73,7 @@
 }
 
 .value-card {
+  /* Thẻ value dạng card */
   align-items: center;
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -82,6 +88,7 @@
 }
 
 .value-card:hover {
+  /* Hover nhẹ nhàng */
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
@@ -112,6 +119,7 @@
 }
 
 .team-card {
+  /* Card thành viên */
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
@@ -126,6 +134,7 @@
 }
 
 .team-card__photo {
+  /* Avatar tròn */
   border-radius: 999px;
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
   height: 6rem;
@@ -136,6 +145,7 @@
 }
 
 .team-card__photo::after {
+  /* Viền trắng mờ đẹp */
   border: 2px solid rgba(255, 255, 255, 0.65);
   border-radius: 999px;
   content: "";
@@ -170,6 +180,7 @@
   line-height: 1.6;
 }
 
+/* Highlight trưởng nhóm */
 .team-card--lead {
   border-color: rgba(37, 99, 235, 0.35);
   box-shadow: 0 18px 42px rgba(37, 99, 235, 0.12);
@@ -186,6 +197,7 @@
 
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
+  /* Story chuyển sang 2 cột */
   .story-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -194,15 +206,18 @@
     min-height: 320px;
   }
 
+  /* Giá trị cốt lõi: 3 thẻ 1 hàng */
   .value-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  /* Team: 3 người 1 hàng */
   .team-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
+/* Trên mobile thì trưởng nhóm không nhảy lên cao để tránh lệch layout */
 @media (max-width: 767px) {
   .team-card--lead {
     transform: none;

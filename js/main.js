@@ -1,8 +1,8 @@
 /*
   File: main.js
   Mô tả: Quản lý chế độ sáng/tối, hiệu ứng reveal khi cuộn và carousel tính năng trên trang chủ Learnie.
-  Người thực hiện: Nguyễn Đặng Quang Phúc – 23521204
-  Ngày cập nhật: 16/11/2025
+  Người thực hiện: Lê Ngọc Phương Nga - 23520992
+  Ngày cập nhật: 19/11/2025
 */
 
 // Khóa lưu trữ chế độ giao diện trong localStorage
@@ -54,17 +54,21 @@ function handleRevealOnScroll() {
 
 // Tạo slider cho phần Tính năng nổi bật (hiển thị 3 thẻ và trượt qua lại)
 function initFeatureCarousel() {
+  // Lấy phần tử bao toàn bộ carousel
   const carousel = document.querySelector("[data-feature-carousel]");
-
+  
+  // Nếu không có carousel thì thoát (tránh lỗi trên trang khác)
   if (!carousel) {
     return;
   }
 
-  const viewport = carousel.querySelector(".feature-carousel__viewport");
-  const track = carousel.querySelector(".feature-carousel__track");
-  const prevButton = carousel.querySelector("[data-carousel-prev]");
-  const nextButton = carousel.querySelector("[data-carousel-next]");
+  // Lấy các phần tử con cần dùng
+  const viewport = carousel.querySelector(".feature-carousel__viewport"); // khung nhìn
+  const track = carousel.querySelector(".feature-carousel__track"); // hàng chứa các thẻ feature-card
+  const prevButton = carousel.querySelector("[data-carousel-prev]"); // nút lùi
+  const nextButton = carousel.querySelector("[data-carousel-next]"); // nút tới
 
+  // Nếu thiếu bất kỳ phần nào thì không khởi tạo slider
   if (!viewport || !track || !prevButton || !nextButton) {
     return;
   }
@@ -72,39 +76,12 @@ function initFeatureCarousel() {
   const cardSelector = ".feature-card";
   const cards = Array.from(track.querySelectorAll(cardSelector));
 
-  if (cards.length === 0) {
+  // Nếu không có thẻ tính năng nào thì không cần slider
+  if (!track.querySelector(cardSelector)) {
     return;
   }
 
-  // Note: Tạo pagination dots container
-  const paginationContainer = document.createElement("div");
-  paginationContainer.className = "feature-carousel__pagination";
-  paginationContainer.setAttribute("role", "tablist");
-  paginationContainer.setAttribute("aria-label", "Điều hướng carousel");
-  carousel.appendChild(paginationContainer);
-
-  // Note: Tạo dots cho mỗi card
-  const dots = [];
-  cards.forEach((card, index) => {
-    const dot = document.createElement("button");
-    dot.type = "button";
-    dot.className = "feature-carousel__dot";
-    dot.setAttribute("role", "tab");
-    dot.setAttribute("aria-label", `Chuyển đến tính năng ${index + 1}`);
-    dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
-    dot.dataset.index = String(index);
-    
-    dot.addEventListener("click", () => {
-      goToCard(index);
-    });
-    
-    paginationContainer.appendChild(dot);
-    dots.push(dot);
-  });
-
-  // Note: Biến theo dõi vị trí hiện tại (index của card đầu tiên đang hiển thị)
-  let currentCardIndex = 0;
-
+  // Biến trạng thái / timer
   let resizeTimer = null;
   let autoSlideTimer = null;
   let isTransitioning = false;
@@ -113,8 +90,10 @@ function initFeatureCarousel() {
   let stepSize = 0;
   let isUserInteracting = false;
 
+  // Báo cho CSS biết là carousel đã sẵn sàng (disable scroll tay, dùng slider)
   carousel.classList.add("feature-carousel--ready");
 
+  // Tính số card hiển thị theo kích thước màn hình
   function getItemsPerView() {
     if (window.innerWidth <= 639) {
       return 1;
@@ -127,6 +106,7 @@ function initFeatureCarousel() {
     return 3;
   }
 
+  // Lấy khoảng cách gap giữa các card từ CSS
   function getGapSize() {
     const styles = window.getComputedStyle(track);
     const rawGap = styles.columnGap || styles.gap || "0";
@@ -134,6 +114,7 @@ function initFeatureCarousel() {
     return Number.isNaN(parsedGap) ? 0 : parsedGap;
   }
 
+  // Tính stepSize = chiều rộng 1 card + gap
   function computeStepSize() {
     const firstCard = track.querySelector(cardSelector);
 
@@ -147,6 +128,7 @@ function initFeatureCarousel() {
     const gap = getGapSize();
 
     if (width === 0) {
+      // Fallback: nếu chưa đo được width card, dùng viewport chia cho itemsPerView
       stepSize = viewport.clientWidth / Math.max(1, itemsPerView);
       return;
     }
@@ -154,6 +136,7 @@ function initFeatureCarousel() {
     stepSize = width + gap;
   }
 
+  // Bật/tắt nút điều khiển + class has-controls
   function updateControls(isActive) {
     if (isActive) {
       carousel.classList.add("feature-carousel--has-controls");
@@ -170,68 +153,7 @@ function initFeatureCarousel() {
     }
   }
 
-  // Note: Cập nhật pagination dots dựa trên currentCardIndex
-  function updatePagination() {
-    dots.forEach((dot, index) => {
-      const isActive = index === currentCardIndex;
-      dot.classList.toggle("is-active", isActive);
-      dot.setAttribute("aria-selected", String(isActive));
-    });
-  }
-
-  // Note: Chuyển đến card cụ thể (dùng khi click vào dot)
-  function goToCard(targetIndex) {
-    if (isTransitioning || targetIndex === currentCardIndex) {
-      return;
-    }
-
-    const totalCards = cards.length;
-    if (targetIndex < 0 || targetIndex >= totalCards) {
-      return;
-    }
-
-    // Note: Tính số bước cần trượt (xử lý wrap-around)
-    let steps = targetIndex - currentCardIndex;
-    if (steps < 0) {
-      steps += totalCards;
-    }
-    if (steps > totalCards / 2) {
-      steps = steps - totalCards;
-    }
-
-    // Note: Trượt từng bước một, đợi mỗi bước hoàn thành
-    let stepCount = 0;
-    const maxSteps = Math.abs(steps);
-    
-    function executeNextStep() {
-      if (stepCount >= maxSteps) {
-        return;
-      }
-      
-      if (steps > 0) {
-        goToNext("manual");
-      } else {
-        goToPrevious();
-      }
-      
-      stepCount++;
-      
-      // Note: Đợi transition hoàn thành trước khi trượt tiếp
-      if (stepCount < maxSteps) {
-        const firstCard = cards[0];
-        if (firstCard) {
-          const handleStepComplete = () => {
-            firstCard.removeEventListener("transitionend", handleStepComplete);
-            executeNextStep();
-          };
-          firstCard.addEventListener("transitionend", handleStepComplete, { once: true });
-        }
-      }
-    }
-    
-    executeNextStep();
-  }
-
+  // Dừng auto slide nếu đang chạy
   function stopAutoSlide() {
     if (!autoSlideTimer) {
       return;
@@ -241,6 +163,7 @@ function initFeatureCarousel() {
     autoSlideTimer = null;
   }
 
+  // Bắt đầu auto slide (chỉ khi không tương tác và có thể slide)
   function startAutoSlide() {
     if (isUserInteracting) {
       return;
@@ -257,6 +180,7 @@ function initFeatureCarousel() {
     }, 3000);
   }
 
+  // Restart auto slide (dùng sau khi user bấm next/prev)
   function restartAutoSlide() {
     if (isUserInteracting) {
       return;
@@ -265,6 +189,7 @@ function initFeatureCarousel() {
     startAutoSlide();
   }
 
+  // Khi user hover/focus vào carousel -> tạm dừng auto slide
   function pauseAutoSlideForInteraction() {
     if (isUserInteracting) {
       return;
@@ -273,6 +198,7 @@ function initFeatureCarousel() {
     stopAutoSlide();
   }
 
+  // Khi user rời khỏi carousel -> cho auto slide chạy lại
   function resumeAutoSlideAfterInteraction() {
     if (!isUserInteracting) {
       return;
@@ -281,6 +207,7 @@ function initFeatureCarousel() {
     startAutoSlide();
   }
 
+  // Reset transform về 0 ngay lập tức (không transition) để tránh lệch
   function lockTransformToZero() {
     track.classList.add("feature-carousel__track--no-transition");
     track.style.transform = "translateX(0)";
@@ -289,6 +216,7 @@ function initFeatureCarousel() {
     });
   }
 
+  // Đồng bộ lại các thông số khi load / resize
   function syncMetrics() {
     itemsPerView = getItemsPerView();
     const totalCards = track.children.length;
@@ -297,16 +225,20 @@ function initFeatureCarousel() {
     updateControls(canSlide);
 
     if (!canSlide) {
+      // Nếu không đủ card để trượt thì reset vị trí và tắt auto slide
       lockTransformToZero();
       stopAutoSlide();
     }
   }
 
+  // Trượt tới (sang phải) - có thể do auto hoặc manual
   function goToNext(triggerSource = "manual") {
+    // Đang animate thì không cho trượt thêm
     if (isTransitioning) {
       return;
     }
 
+    // Cập nhật thông số mới nhất (nhỡ user vừa resize)
     syncMetrics();
 
     if (!canSlide || stepSize <= 0) {
@@ -314,34 +246,40 @@ function initFeatureCarousel() {
     }
 
     isTransitioning = true;
+    // Dịch track sang trái 1 bước
     track.style.transform = `translateX(-${stepSize}px)`;
 
     const handleTransitionEnd = () => {
       track.removeEventListener("transitionend", handleTransitionEnd);
+      
+      // Tắt transition tạm thời để sắp lại DOM
       track.classList.add("feature-carousel__track--no-transition");
+      
+      // Đưa phần tử đầu xuống cuối -> tạo hiệu ứng vòng lặp
       const firstChild = track.firstElementChild;
 
       if (firstChild) {
         track.appendChild(firstChild);
       }
 
-      // Note: Cập nhật currentCardIndex sau khi di chuyển DOM
-      currentCardIndex = (currentCardIndex + 1) % cards.length;
-      updatePagination();
-
+      // Reset transform về 0
       track.style.transform = "translateX(0)";
+      // Force reflow để trình duyệt áp dụng transform mới
       track.getBoundingClientRect();
+      // Bật lại transition
       track.classList.remove("feature-carousel__track--no-transition");
       isTransitioning = false;
     };
 
     track.addEventListener("transitionend", handleTransitionEnd, { once: true });
 
+    // Nếu user tự bấm next thì restart auto slide
     if (triggerSource === "manual") {
       restartAutoSlide();
     }
   }
 
+  // Trượt lùi (sang trái logically, slider chạy ngược lại)
   function goToPrevious() {
     if (isTransitioning) {
       return;
@@ -354,20 +292,21 @@ function initFeatureCarousel() {
     }
 
     isTransitioning = true;
+    // Tắt transition để sắp lại phần tử cuối lên đầu
     track.classList.add("feature-carousel__track--no-transition");
 
     const lastChild = track.lastElementChild;
 
     if (lastChild) {
+      // Đưa phần tử cuối lên đầu
       track.insertBefore(lastChild, track.firstElementChild);
     }
 
-    // Note: Cập nhật currentCardIndex sau khi di chuyển DOM
-    currentCardIndex = (currentCardIndex - 1 + cards.length) % cards.length;
-    updatePagination();
-
+    // Đặt track ở vị trí lệch sang trái 1 bước
     track.style.transform = `translateX(-${stepSize}px)`;
+    // Force reflow để trình duyệt ghi nhận vị trí này
     track.getBoundingClientRect();
+    // Bật lại transition và animate quay về 0
     track.classList.remove("feature-carousel__track--no-transition");
     track.style.transform = "translateX(0)";
 
@@ -375,12 +314,14 @@ function initFeatureCarousel() {
       track.removeEventListener("transitionend", handleTransitionEnd);
       isTransitioning = false;
     };
-
+    
     track.addEventListener("transitionend", handleTransitionEnd, { once: true });
 
+    // Sau khi user bấm prev thì restart auto slide
     restartAutoSlide();
   }
 
+  // Sự kiện click nút prev/next
   prevButton.addEventListener("click", () => {
     goToPrevious();
   });
@@ -389,24 +330,29 @@ function initFeatureCarousel() {
     goToNext("manual");
   });
 
+  // Khi user hover/focus vào carousel -> dừng auto slide
   carousel.addEventListener("mouseenter", pauseAutoSlideForInteraction);
   carousel.addEventListener("mouseleave", resumeAutoSlideAfterInteraction);
   carousel.addEventListener("focusin", pauseAutoSlideForInteraction);
   carousel.addEventListener("focusout", (event) => {
+    // Chỉ resume khi focus ra khỏi toàn bộ carousel
     if (!carousel.contains(event.relatedTarget)) {
       resumeAutoSlideAfterInteraction();
     }
   });
 
+  // Khi resize màn hình -> cập nhật lại metrics và reset vị trí
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);
+    // Debounce 140ms để tránh tính toán lại quá nhiều lần
     resizeTimer = window.setTimeout(() => {
       syncMetrics();
       lockTransformToZero();
       restartAutoSlide();
     }, 140);
   });
-
+  
+  // Khởi tạo carousel ngay lần đầu
   syncMetrics();
   updatePagination(); // Note: Khởi tạo pagination dots
   startAutoSlide();
