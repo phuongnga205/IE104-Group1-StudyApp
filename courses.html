@@ -1,33 +1,51 @@
+<!--
+  File: courses.html
+  Mô tả: Giao diện trang hiển thị danh sách các chủ đề/khóa học, tích hợp bộ lọc và tìm kiếm.
+  Người thực hiện: Trần Thị Hoàng Nhung
+  Ngày cập nhật: 19/11/2025
+-->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <!-- Learnie Project | IE104 | Nhóm Learnie | 2025 -->
+   <!-- Learnie Project | IE104 | Nhóm Learnie | 2025 -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Khóa học | Learnie</title>
+  
+  <!-- Tải các file CSS chung và CSS riêng của trang -->
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/animation.css" />
   <link rel="stylesheet" href="css/courses.css" />
 </head>
 <body>
+
+  <!-- ===== TIÊU ĐỀ (HEADER) ===== -->
+  <!-- Chứa logo, điều hướng chính và nút chuyển đổi giao diện -->
   <header class="site-header">
     <div class="site-header__navbar container">
+      <!-- Logo và liên kết về trang chủ -->
       <a class="site-header__brand" href="index.html" aria-label="Learnie">
         <img class="brand-logo-image" src="images/icons/Learnie_logo.svg" alt="" aria-hidden="true" loading="lazy" width="426" height="143" />
       </a>
+
+      <!-- Điều hướng chính của trang web -->
       <nav class="main-nav" aria-label="Điều hướng chính">
         <a class="main-nav__link" href="index.html">Trang chủ</a>
         <a class="main-nav__link main-nav__link--active" href="courses.html">Khóa học</a>
         <a class="main-nav__link" href="about.html">Về chúng tôi</a>
         <a class="main-nav__link" href="contact.html">Liên hệ</a>
       </nav>
+
+      <!-- Các hành động phụ, ví dụ: đổi giao diện -->
       <div class="site-header__actions">
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Đổi giao diện">🌙</button>
       </div>
     </div>
   </header>
 
+  <!-- ===== NỘI DUNG CHÍNH (MAIN) ===== -->
   <main>
+    <!-- Khu vực banner giới thiệu của trang -->
     <section class="hero-section hero-section--sub reveal">
       <div class="hero-section__inner container">
         <h1 class="hero-section__title">Khám phá các chủ đề học tiếng&nbsp;Anh</h1>
@@ -35,26 +53,38 @@
       </div>
     </section>
 
+    <!-- ===== DANH SÁCH KHÓA HỌC VÀ BỘ LỌC ===== -->
     <section class="section section--courses reveal">
       <div class="container">
+        <!-- Tiêu đề và mô tả cho khu vực danh sách khóa học -->
         <div class="section__heading">
           <h2 class="section__title">Tất cả chủ đề</h2>
           <p class="section__description">Chọn chủ đề bạn yêu thích để bắt đầu học ngay.</p>
         </div>
 
+        <!-- Khung chứa toàn bộ công cụ điều khiển: tìm kiếm, lọc, sắp xếp -->
         <div class="course-controls">
+          <!-- Các điều khiển chính: search, filter, sort -->
           <div class="course-controls__primary">
+            
+            <!-- Thanh tìm kiếm chính -->
             <label class="visually-hidden" for="courseSearch">Tìm kiếm chủ đề</label>
             <div class="course-search-bar">
               <span class="course-search-bar__icon" aria-hidden="true">🔍</span>
               <input class="course-search-bar__input" type="search" id="courseSearch" name="courseSearch" placeholder="Tìm kiếm chủ đề (ví dụ: du lịch, công nghệ...)" autocomplete="off" />
             </div>
+
+            <!-- Nút và panel bộ lọc -->
             <div class="course-filter">
               <button class="course-action-btn course-filter__toggle" id="courseFilterToggle" type="button" aria-expanded="false" aria-controls="courseFilters">
                 <span class="course-action-btn__icon" aria-hidden="true">⚙️</span>
                 <span class="course-action-btn__label">Lọc</span>
               </button>
+              
+              <!-- Panel bộ lọc, được ẩn/hiện bằng JS -->
               <form class="course-filter__panel" id="courseFilters" aria-label="Bộ lọc chủ đề" hidden>
+                
+                <!-- Bộ lọc theo Danh mục (MultiSelect) -->
                 <div class="course-field">
                   <label class="course-field__label" id="courseCategoryLabel">Danh mục</label>
                   <div class="multi-select" id="courseCategoryMulti" aria-labelledby="courseCategoryLabel">
@@ -62,6 +92,8 @@
                     <div class="multi-select__panel" role="listbox" aria-multiselectable="true" hidden></div>
                   </div>
                 </div>
+
+                <!-- Bộ lọc theo Trình độ (MultiSelect) -->
                 <div class="course-field">
                   <label class="course-field__label" id="courseDifficultyLabel">Trình độ</label>
                   <div class="multi-select" id="courseDifficultyMulti" aria-labelledby="courseDifficultyLabel">
@@ -69,6 +101,8 @@
                     <div class="multi-select__panel" role="listbox" aria-multiselectable="true" hidden></div>
                   </div>
                 </div>
+
+                <!-- Bộ lọc theo Trạng thái (MultiSelect) -->
                 <div class="course-field">
                   <label class="course-field__label" id="courseStatusLabel">Trạng thái</label>
                   <div class="multi-select" id="courseStatusMulti" aria-labelledby="courseStatusLabel">
@@ -76,6 +110,8 @@
                     <div class="multi-select__panel" role="listbox" aria-multiselectable="true" hidden></div>
                   </div>
                 </div>
+
+                <!-- Bộ lọc theo Khoảng điểm (Range Slider) -->
                 <fieldset class="filters-range">
                   <legend class="course-field__label">Khoảng điểm</legend>
                   <div class="range" id="scoreRange">
@@ -92,11 +128,15 @@
                     <button id="clearScoreRange" class="range__clear" type="button">Xóa khoảng điểm</button>
                   </div>
                 </fieldset>
+                
+                <!-- Nút đặt lại toàn bộ bộ lọc -->
                 <div class="course-filter__actions">
                   <button class="course-filter__reset" type="button" id="courseFilterReset">Đặt lại bộ lọc</button>
                 </div>
               </form>
             </div>
+
+            <!-- Nút và menu sắp xếp -->
             <div class="course-sort">
               <button class="course-action-btn" id="courseSortToggle" type="button" aria-expanded="false" aria-controls="courseSortMenu">
                 <span class="course-action-btn__icon" aria-hidden="true">⇅</span>
@@ -113,24 +153,31 @@
               </div>
             </div>
           </div>
+          
+          <!-- Vùng chứa các từ khóa gợi ý (nội dung được tạo bởi JS) -->
           <div class="course-keywords" id="courseKeywordList" aria-label="Từ khóa gợi ý"></div>
         </div>
 
+        <!-- Dòng tóm tắt kết quả lọc (nội dung được cập nhật bởi JS) -->
         <p class="course-results" id="courseResultsSummary" aria-live="polite"></p>
 
+        <!-- Lưới chứa danh sách các thẻ khóa học (nội dung được tạo bởi JS) -->
         <div class="course-list" id="courseGrid" aria-live="polite"></div>
       </div>
     </section>
   </main>
 
+  <!-- ===== CHÂN TRANG (FOOTER) ===== -->
   <footer class="footer">
     <div class="footer__grid container">
+      <!-- Cột thương hiệu và mô tả -->
       <div class="footer__column footer__column--brand">
         <div class="footer__brand">
           <img class="footer__brand-logo" src="images/icons/Learnie_logo.svg" alt="Learnie" loading="lazy" width="426" height="143" />
           <p class="footer__description">Học tiếng&nbsp;Anh thông minh hơn, dễ hơn và vui hơn.</p>
         </div>
       </div>
+      <!-- Cột liên kết nhanh -->
       <div class="footer__column">
         <h3 class="footer__heading">Liên kết nhanh</h3>
         <ul class="footer__links">
@@ -140,6 +187,7 @@
           <li><a class="footer__link" href="contact.html">Liên hệ</a></li>
         </ul>
       </div>
+      <!-- Cột thông tin kết nối và giờ làm việc -->
       <div class="footer__column">
         <h3 class="footer__heading">Kết nối với chúng tôi</h3>
         <ul class="footer__links footer__links--icons">
@@ -165,11 +213,12 @@
         </div>
       </div>
     </div>
+    <!-- Dòng bản quyền ở cuối trang -->
     <div class="footer__bottom">
       <div class="footer__bottom-inner container">© 2025 Learnie. All rights reserved.</div>
     </div>
   </footer>
-
+  
   <script src="js/main.js"></script>
   <script src="js/courses.js"></script>
 </body>
