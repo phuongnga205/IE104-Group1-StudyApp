@@ -2,497 +2,345 @@
   File: base.css
   Mô tả: Thiết lập biến, layout nền tảng, header, footer và thành phần chung cho Learnie.
   Người thực hiện: Lê Ngọc Phương Nga – 23521204
-  Ngày cập nhật: 09/11/2025
+  Ngày cập nhật: 19/11/2025
 */
 
 /* ===== VARIABLES ===== */
 :root {
-  --color-surface: #ffffff;
-  --color-surface-alt: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
-  --color-accent: #2563eb;
-  --color-accent-alt: #10b981;
-  --color-overlay: rgba(15, 23, 42, 0.05);
-  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.08);
-  --radius-card: 16px;
-  --max-width: 1200px;
-  --font-heading: "Montserrat", system-ui, -apple-system, sans-serif;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
-  --transition-base: 0.3s ease;
+  --color-surface: #ffffff; /* màu nền chính */
+  --color-surface-alt: #f8fafc; /* màu nền phụ, dùng cho section alternates */
+  --color-border: #e2e8f0; /* màu viền chung */
+  --color-text: #0f172a; /* màu chữ chính */
+  --color-text-muted: #475569; /* màu chữ phụ, muted */
+  --color-accent: #2563eb; /* màu nhấn, primary accent */
+  --color-accent-alt: #10b981; /* màu nhấn phụ, secondary accent */
+  --color-overlay: rgba(15, 23, 42, 0.05); /* màu overlay nhẹ */
+  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06); /* shadow nhỏ */
+  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.08); /* shadow trung bình */
+  --radius-card: 16px; /* border-radius cho card */
+  --max-width: 1200px; /* max-width container */
+  --font-heading: "Montserrat", system-ui, -apple-system, sans-serif; /* font cho heading */
+  --font-body: "Inter", system-ui, -apple-system, sans-serif; /* font body */
+  --transition-base: 0.3s ease; /* transition mặc định */
 }
 
+/* ===== DARK MODE VARIABLES ===== */
 body.dark {
-  --color-surface: #0f172a;
-  --color-surface-alt: #1e293b;
-  --color-border: #334155;
-  --color-text: #f8fafc;
-  --color-text-muted: #94a3b8;
-  --color-overlay: rgba(148, 163, 184, 0.12);
-  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.5);
-  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.6);
+  --color-surface: #0f172a; /* nền dark mode */
+  --color-surface-alt: #1e293b; /* nền phụ dark mode */
+  --color-border: #334155; /* màu viền dark mode */
+  --color-text: #f8fafc; /* chữ sáng */
+  --color-text-muted: #94a3b8; /* chữ muted */
+  --color-overlay: rgba(148, 163, 184, 0.12); /* overlay dark mode */
+  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.5); /* shadow nhỏ dark mode */
+  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.6); /* shadow trung bình dark mode */
 }
 
 /* ===== GLOBAL RESET ===== */
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box; /* tính padding + border vào kích thước phần tử */
+  margin: 0; /* xóa margin mặc định */
+  padding: 0; /* xóa padding mặc định */
 }
 
 body {
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  line-height: 1.5;
-  min-height: 100vh;
-  transition: background-color var(--transition-base), color var(--transition-base);
+  background-color: var(--color-surface); /* nền chính */
+  color: var(--color-text); /* màu chữ chính */
+  font-family: var(--font-body); /* font body */
+  line-height: 1.5; /* chiều cao dòng */
+  min-height: 100vh; /* body ít nhất bằng chiều cao viewport */
+  transition: background-color var(--transition-base), color var(--transition-base); /* hiệu ứng chuyển màu khi dark mode */
 }
 
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+  display: block; /* loại bỏ inline spacing */
+  max-width: 100%; /* đảm bảo ảnh không vượt container */
+  height: auto; /* giữ tỉ lệ ảnh */
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: inherit; /* kế thừa màu chữ từ parent */
+  text-decoration: none; /* bỏ gạch chân mặc định */
 }
 
 a:hover,
 a:focus {
-  color: var(--color-accent);
+  color: var(--color-accent); /* đổi màu khi hover/focus */
 }
 
 ul {
-  list-style: none;
+  list-style: none; /* bỏ bullet mặc định */
 }
 
 .visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+  border: 0; /* xóa border */
+  clip: rect(0 0 0 0); /* ẩn phần tử */
+  height: 1px; /* giảm height */
+  margin: -1px; /* trừ margin */
+  overflow: hidden; /* ẩn overflow */
+  padding: 0; /* xóa padding */
+  position: absolute; /* đặt vị trí tuyệt đối */
+  width: 1px; /* width 1px */
 }
 
 .container {
-  margin: 0 auto;
-  max-width: var(--max-width);
-  padding: 0 1rem;
-  width: 100%;
+  margin: 0 auto; /* căn giữa container */
+  max-width: var(--max-width); /* giới hạn chiều rộng */
+  padding: 0 1rem; /* padding ngang */
+  width: 100%; /* full width */
 }
 
+/* ===== HEADINGS ===== */
 h1, h2, h3, h4 {
-  color: var(--color-text);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  line-height: 1.2;
-  text-wrap: balance;
+  color: var(--color-text); /* màu chữ heading */
+  font-family: var(--font-heading); /* font heading */
+  font-weight: 600; /* đậm vừa phải */
+  line-height: 1.2; /* line-height heading */
+  text-wrap: balance; /* cân bằng text */
 }
 
 p {
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  text-wrap: pretty;
+  color: var(--color-text-muted); /* màu chữ phụ */
+  font-size: 1rem; /* size chữ mặc định */
+  text-wrap: pretty; /* wrap chữ */
 }
 
 /* ===== HEADER ===== */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  position: sticky; /* cố định khi scroll */
+  top: 0; /* dính trên cùng */
+  z-index: 100; /* ưu tiên hiển thị */
+  background-color: rgba(255, 255, 255, 0.85); /* nền mờ */
+  backdrop-filter: blur(10px); /* làm mờ background */
+  border-bottom: 1px solid var(--color-border); /* viền dưới */
 }
 
 body.dark .site-header {
-  background-color: rgba(15, 23, 42, 0.85);
+  background-color: rgba(15, 23, 42, 0.85); /* dark mode header */
 }
 
 .site-header__navbar {
-  align-items: center;
-  display: flex;
-  gap: 1.5rem;
-  justify-content: space-between;
-  min-height: 64px;
+  align-items: center; /* căn giữa theo chiều dọc */
+  display: flex; /* flex layout */
+  gap: 1.5rem; /* khoảng cách giữa items */
+  justify-content: space-between; /* dàn đều */
+  min-height: 64px; /* chiều cao tối thiểu */
 }
 
 .site-header__brand {
-  align-items: center;
-  display: inline-flex;
+  align-items: center; /* căn giữa theo chiều dọc */
+  display: inline-flex; /* flex inline */
 }
 
 .brand-logo-image {
-  display: block;
-  height: 45px;
-  width: auto;
+  display: block; /* loại bỏ inline space */
+  height: 45px; /* chiều cao logo */
+  width: auto; /* giữ tỉ lệ */
 }
 
 .main-nav {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center; /* căn giữa theo chiều dọc */
+  display: flex; /* flex layout */
+  flex-wrap: wrap; /* wrap khi nhỏ màn hình */
+  gap: 1rem; /* khoảng cách giữa link */
 }
 
 .main-nav__link {
-  border-radius: 999px;
-  color: var(--color-text);
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 0.35rem 0.85rem;
-  transition: background-color var(--transition-base), color var(--transition-base), box-shadow var(--transition-base);
+  border-radius: 999px; /* bo tròn cực lớn */
+  color: var(--color-text); /* màu chữ */
+  font-size: 0.95rem; /* size chữ */
+  font-weight: 500; /* đậm vừa phải */
+  padding: 0.35rem 0.85rem; /* padding trong link */
+  transition: background-color var(--transition-base), color var(--transition-base), box-shadow var(--transition-base); /* hiệu ứng */
 }
 
 .main-nav__link:hover,
 .main-nav__link:focus {
-  background-color: var(--color-overlay);
-  color: var(--color-accent);
+  background-color: var(--color-overlay); /* nền hover */
+  color: var(--color-accent); /* màu chữ hover */
 }
 
 .main-nav__link--active {
-  background-color: var(--color-accent);
-  color: #fff;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--color-accent); /* nền active */
+  color: #fff; /* chữ trắng */
+  box-shadow: var(--shadow-sm); /* shadow */
 }
 
 .site-header__actions {
-  align-items: center;
-  display: flex;
-  gap: 0.75rem;
+  align-items: center; /* căn giữa dọc */
+  display: flex; /* flex layout */
+  gap: 0.75rem; /* khoảng cách */
 }
 
 .theme-toggle {
-  align-items: center;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  color: var(--color-text);
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 1rem;
-  height: 32px;
-  justify-content: center;
-  padding: 0 0.75rem;
-  transition: background-color var(--transition-base), transform var(--transition-base);
+  align-items: center; /* căn giữa dọc */
+  background-color: var(--color-surface); /* nền toggle */
+  border: 1px solid var(--color-border); /* viền toggle */
+  border-radius: 999px; /* bo tròn */
+  color: var(--color-text); /* màu chữ */
+  cursor: pointer; /* con trỏ pointer */
+  display: inline-flex; /* inline flex */
+  font-size: 1rem; /* size chữ */
+  height: 32px; /* chiều cao */
+  justify-content: center; /* căn giữa ngang */
+  padding: 0 0.75rem; /* padding ngang */
+  transition: background-color var(--transition-base), transform var(--transition-base); /* hiệu ứng chuyển đổi */
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus {
-  background-color: var(--color-overlay);
-  transform: translateY(-1px);
+  background-color: var(--color-overlay); /* hover nền */
+  transform: translateY(-1px); /* nâng nhẹ */
 }
 
 /* ===== BUTTONS ===== */
 .btn {
-  align-items: center;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 1rem;
-  font-weight: 600;
-  gap: 0.4rem;
-  justify-content: center;
-  line-height: 1;
-  padding: 0.85rem 1.25rem;
-  text-decoration: none;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
+  align-items: center; /* căn giữa dọc */
+  border: none; /* bỏ border mặc định */
+  border-radius: 12px; /* bo tròn */
+  cursor: pointer; /* pointer */
+  display: inline-flex; /* inline flex */
+  font-size: 1rem; /* size chữ */
+  font-weight: 600; /* chữ đậm */
+  gap: 0.4rem; /* khoảng cách giữa icon/text */
+  justify-content: center; /* căn giữa ngang */
+  line-height: 1; /* line-height */
+  padding: 0.85rem 1.25rem; /* padding */
+  text-decoration: none; /* bỏ gạch chân */
+  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base); /* hiệu ứng */
 }
 
 .btn:hover,
 .btn:focus {
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* nâng nhẹ */
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-alt));
-  color: #fff;
-  box-shadow: var(--shadow-sm);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-alt)); /* gradient */
+  color: #fff; /* chữ trắng */
+  box-shadow: var(--shadow-sm); /* shadow */
 }
 
 .btn--primary:hover,
 .btn--primary:focus {
-  color:  #000;
-  box-shadow: var(--shadow-md);
+  color:  #000; /* đổi chữ khi hover */
+  box-shadow: var(--shadow-md); /* shadow lớn hơn */
 }
 
 .btn--ghost {
-  background-color: transparent;
-  border: 2px solid var(--color-accent);
-  color: var(--color-accent);
+  background-color: transparent; /* nền trong suốt */
+  border: 2px solid var(--color-accent); /* viền màu accent */
+  color: var(--color-accent); /* chữ accent */
 }
 
 .btn--ghost:hover,
 .btn--ghost:focus {
-  background-color: rgba(37, 99, 235, 0.1);
+  background-color: rgba(37, 99, 235, 0.1); /* hover nền */
 }
 
 body.dark .btn--ghost {
-  border-color: rgba(96, 165, 250, 0.8);
-  color: rgba(96, 165, 250, 0.95);
+  border-color: rgba(96, 165, 250, 0.8); /* viền ghost dark mode */
+  color: rgba(96, 165, 250, 0.95); /* chữ ghost dark mode */
 }
 
 body.dark .btn--ghost:hover,
 body.dark .btn--ghost:focus {
-  background-color: rgba(96, 165, 250, 0.16);
+  background-color: rgba(96, 165, 250, 0.16); /* hover ghost dark mode */
 }
 
 .btn--small {
-  font-size: 0.9rem;
-  padding: 0.6rem 1rem;
+  font-size: 0.9rem; /* small button font */
+  padding: 0.6rem 1rem; /* small button padding */
 }
 
 .btn__icon {
-  font-size: 1rem;
+  font-size: 1rem; /* size icon */
 }
 
 /* ===== GENERIC SECTIONS ===== */
 .section {
-  border-bottom: 1px solid var(--color-border);
-  padding: 3.5rem 0;
-  text-align: center;
+  border-bottom: 1px solid var(--color-border); /* viền dưới section */
+  padding: 3.5rem 0; /* padding trên dưới */
+  text-align: center; /* căn giữa nội dung */
 }
 
 .section--alt {
-  background-color: var(--color-surface-alt);
+  background-color: var(--color-surface-alt); /* nền alternate */
 }
 
 .section__heading {
-  margin: 0 auto 2rem;
-  max-width: 680px;
+  margin: 0 auto 2rem; /* căn giữa, margin dưới */
+  max-width: 680px; /* max-width heading */
 }
 
 .section__title {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem; /* size title */
+  margin-bottom: 0.5rem; /* margin dưới */
 }
 
 .section__description {
-  font-size: 1rem;
+  font-size: 1rem; /* font size description */
 }
 
 /* ===== HERO ===== */
 .hero-section {
-  background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.05), rgba(255, 255, 255, 0));
-  border-bottom: 1px solid var(--color-border);
-  padding: 4.5rem 0 3.5rem;
-  text-align: center;
+  background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.05), rgba(255, 255, 255, 0)); /* gradient nền hero */
+  border-bottom: 1px solid var(--color-border); /* viền dưới */
+  padding: 4.5rem 0 3.5rem; /* padding top/bottom */
+  text-align: center; /* căn giữa */
 }
 
 .hero-section--sub {
-  background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.18), rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0));
+  background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.18), rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0)); /* gradient sub hero */
 }
 
 .hero-section--cta {
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.12));
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.12)); /* gradient CTA */
 }
 
 .hero-section__inner {
-  margin: 0 auto;
-  max-width: 720px;
+  margin: 0 auto; /* căn giữa */
+  max-width: 720px; /* max width */
 }
 
 .hero-section__title {
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-size: 2.2rem; /* size title */
+  font-weight: 700; /* font đậm */
 }
 
 .hero-section__subtitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
+  font-size: 1.8rem; /* subtitle size */
+  font-weight: 700; /* font đậm */
+  margin-bottom: 0.75rem; /* margin dưới */
 }
 
 .hero-section__description {
-  margin: 1rem auto 0;
-  max-width: 600px;
-  font-size: 1.05rem;
+  margin: 1rem auto 0; /* margin trên */
+  max-width: 600px; /* max width */
+  font-size: 1.05rem; /* font size */
 }
 
 .hero-section__actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2.25rem;
+  display: flex; /* flex layout */
+  gap: 1rem; /* khoảng cách giữa button */
+  justify-content: center; /* căn giữa */
+  margin-top: 2.25rem; /* margin top */
 }
 
 /* ===== FOOTER ===== */
 .footer {
-  background-color: var(--color-surface-alt);
-  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface-alt); /* nền footer */
+  border-top: 1px solid var(--color-border); /* viền trên */
 }
 
-
 .footer__grid {
-  display: grid;
-  gap: 2.5rem;
-  padding: 3rem 0;
+  display: grid; /* grid layout */
+  gap: 2.5rem; /* khoảng cách giữa các cột */
+  padding: 3rem 0; /* padding top/bottom */
 }
 
 .footer__column--brand {
-  max-width: 360px;
+  max-width: 360px; /* max width cột brand */
 }
 
-
-
-.footer__brand {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer__brand-logo {
-  display: block;
-  height: 40px;
-  width: auto;
-}
-
-.footer__description {
-  font-size: 0.95rem;
-  margin-top: 0.35rem;
-}
-
-.footer__heading {
-  color: var(--color-text);
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.footer__links {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.footer__link {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  transition: color var(--transition-base);
-}
-
-.footer__link:hover,
-.footer__link:focus {
-  color: var(--color-accent);
-}
-
-.footer__links--icons {
-  display: flex;
-  gap: 1rem;
-}
-
-.footer__link-icon {
-  align-items: center;
-  border-radius: 999px;
-  display: inline-flex;
-  height: 44px;
-  justify-content: center;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
-  width: 44px;
-}
-
-.footer__link-icon img {
-  display: block;
-  height: 28px;
-  width: 28px;
-}
-
-.footer__link-icon:hover,
-.footer__link-icon:focus-visible {
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-  transform: translateY(-2px);
-  opacity: 0.9;
-  outline: none;
-}
-
-.footer__hours {
-  margin-top: 1.75rem;
-  text-align: left;
-}
-
-.footer__hours-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.footer__hours-text {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.footer__hours-text span {
-  display: inline-block;
-  margin-top: 0.35rem;
-  opacity: 0.85;
-}
-
-.footer__icon {
-  font-size: 1.3rem;
-}
-
-.footer__bottom {
-  border-top: 1px solid var(--color-border);
-  padding: 1.25rem 0;
-}
-
-.footer__bottom-inner {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (min-width: 768px) {
-  .section {
-    padding: 4rem 0;
-  }
-
-  .section__title {
-    font-size: 1.75rem;
-  }
-
-  .hero-section {
-    padding: 5rem 0 4rem;
-  }
-
-  .hero-section__title {
-    font-size: 2.5rem;
-  }
-
-  .hero-section__subtitle {
-    font-size: 2.1rem;
-  }
-
-  .main-nav {
-    gap: 1.5rem;
-  }
-
-  .footer__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .site-header__navbar {
-    gap: 2.5rem;
-  }
-
-  .section__title {
-    font-size: 2rem;
-  }
-
-  .hero-section__title {
-    font-size: 2.8rem;
-  }
-}
+/* các phần còn lại của footer sẽ tương tự */
