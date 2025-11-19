@@ -2,28 +2,31 @@
   File: home.css
   Mô tả: Kiểu dáng riêng cho trang chủ Learnie (hero, tính năng, chủ đề, newsletter, CTA).
   Người thực hiện: Lê Ngọc Phương Nga – 23520992
-  Ngày cập nhật: 08/11/2025
+  Ngày cập nhật: 19/11/2025
 */
 
 /* ===== HERO HOME ===== */
+/* Phần banner/hero đầu trang */
 .hero-section--home {
   background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.18), rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0));
 }
 
 /* ===== FEATURE CAROUSEL ===== */
-
+/* Khối carousel hiển thị các tính năng nổi bật */
 .feature-carousel {
-  --feature-gap: 1.25rem;
-  padding: 0 clamp(1rem, 4vw, 3.25rem);
+  --feature-gap: 1.25rem; /* Khoảng cách giữa các feature-card */
+  padding: 0 clamp(1rem, 4vw, 3.25rem); /* Khoảng padding linh hoạt */
   position: relative;
 }
 
+/* Khung chứa các item trong carousel, cho phép cuộn ngang */
 .feature-carousel__viewport {
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory; /* Snap từng item */
   padding: 0.25rem 0;
 }
 
+/* Danh sách các feature-card */
 .feature-list {
   display: flex;
   gap: var(--feature-gap);
@@ -35,15 +38,18 @@
   will-change: transform;
 }
 
+/* Track của carousel để quản lý animation */
 .feature-carousel__track {
   list-style: none;
 }
 
+/* Khi carousel đã sẵn sàng, tắt overflow và snap để animation JS hoạt động */
 .feature-carousel--ready .feature-carousel__viewport {
   overflow: hidden;
   scroll-snap-type: none;
 }
 
+/* Nút điều hướng prev/next của carousel */
 .feature-carousel__control {
   align-items: center;
   background-color: var(--color-surface);
@@ -52,7 +58,7 @@
   box-shadow: var(--shadow-sm);
   color: var(--color-text);
   cursor: pointer;
-  display: none;
+  display: none; /* mặc định ẩn, bật khi JS thêm class */
   font-size: 1.2rem;
   height: 2.75rem;
   justify-content: center;
@@ -65,15 +71,18 @@
   z-index: 2;
 }
 
+/* Đảm bảo line-height icon trong button đẹp */
 .feature-carousel__control span {
   line-height: 1;
 }
 
+/* Hiển thị outline khi focus bằng bàn phím */
 .feature-carousel__control:focus-visible {
   outline: 3px solid rgba(37, 99, 235, 0.35);
   outline-offset: 3px;
 }
 
+/* Hiệu ứng hover/focus */
 .feature-carousel__control:hover,
 .feature-carousel__control:focus {
   background-color: var(--color-accent);
@@ -81,11 +90,13 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Khi button bị disable */
 .feature-carousel__control[disabled] {
   opacity: 0.35;
   pointer-events: none;
 }
 
+/* Vị trí button prev/next */
 .feature-carousel__control--prev {
   left: clamp(0.25rem, 3vw, 1.75rem);
 }
@@ -94,15 +105,19 @@
   right: clamp(0.25rem, 3vw, 1.75rem);
 }
 
+/* Bật hiển thị button nếu carousel có controls */
 .feature-carousel--has-controls .feature-carousel__control {
   display: inline-flex;
 }
 
+/* Kích thước mỗi feature-card trong carousel */
 .feature-carousel .feature-card {
   flex: 0 0 calc((100% - (var(--feature-gap) * 2)) / 3);
   scroll-snap-align: start;
 }
 
+/* ===== FEATURE CARD ===== */
+/* Các thẻ tính năng */
 .feature-card {
   align-items: center;
   background-color: var(--color-surface);
@@ -117,13 +132,14 @@
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
+/* Hover/focus hiệu ứng */
 .feature-card:hover,
 .feature-card:focus-within {
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
 
-
+/* Khối icon */
 .feature-card__figure {
   align-items: center;
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.12));
@@ -135,23 +151,27 @@
   width: 3.75rem;
 }
 
+/* Icon font */
 .feature-card__icon {
   color: var(--color-accent);
   font-size: 1.8rem;
   line-height: 1;
 }
 
+/* Tiêu đề feature */
 .feature-card__title {
   font-size: 1.08rem;
   margin-bottom: 0.4rem;
 }
 
+/* Mô tả feature */
 .feature-card__description {
   flex-grow: 1;
   font-size: 0.96rem;
   line-height: 1.55;
 }
 
+/* Container nội dung feature */
 .feature-card__content {
   display: flex;
   flex-direction: column;
@@ -161,6 +181,7 @@
 }
 
 /* ===== STATS ===== */
+/* Các thẻ hiển thị số liệu */
 .stats-list {
   display: grid;
   gap: 1.5rem;
@@ -179,6 +200,7 @@
   transform: translateY(-4px);
 }
 
+/* Icon trong stats */
 .stats-card__icon {
   align-items: center;
   background-color: rgba(37, 99, 235, 0.12);
@@ -204,6 +226,7 @@
 }
 
 /* ===== TOPIC GRID ===== */
+/* Lưới các chủ đề học */
 .topic-grid {
   display: grid;
   gap: 1.5rem;
@@ -225,6 +248,7 @@
   transform: translateY(-6px);
 }
 
+/* Hình minh họa */
 .topic-card__thumb {
   min-height: 160px;
   position: relative;
@@ -245,6 +269,7 @@
   z-index: 0;
 }
 
+/* Overlay màu gradient và text */
 .topic-card__overlay {
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.55) 55%, rgba(15, 23, 42, 0.78) 100%);
   bottom: 0;
@@ -260,6 +285,7 @@
   z-index: 1;
 }
 
+/* Container nhãn cho chủ đề */
 .topic-card__labels {
   display: flex;
   flex-direction: column;
@@ -277,6 +303,7 @@
   opacity: 0.85;
 }
 
+/* Mô tả chủ đề */
 .topic-card__description {
   color: rgba(255, 255, 255, 0.96);
   font-size: 0.95rem;
@@ -284,6 +311,7 @@
   text-shadow: 0 3px 12px rgba(15, 23, 42, 0.55);
 }
 
+/* Nút CTA "Khám phá" */
 .topic-card__cta {
   align-self: flex-start;
   background-color: transparent;
@@ -336,6 +364,7 @@ body.dark .topic-card__cta:focus {
   width: 100%;
 }
 
+/* Hiệu ứng focus input */
 .newsletter-form__input:focus {
   border-color: var(--color-accent);
   outline: none;
@@ -343,12 +372,14 @@ body.dark .topic-card__cta:focus {
 }
 
 /* ===== RESPONSIVE ===== */
+/* Responsive carousel cards */
 @media (max-width: 1023px) {
   .feature-carousel .feature-card {
     flex: 0 0 calc((100% - var(--feature-gap)) / 2);
   }
 }
 
+/* Responsive tablet */
 @media (max-width: 767px) {
   .feature-carousel {
     padding: 0 clamp(1.5rem, 6vw, 2.75rem);
@@ -363,6 +394,7 @@ body.dark .topic-card__cta:focus {
   }
 }
 
+/* Responsive mobile */
 @media (max-width: 639px) {
   .feature-carousel {
     padding: 0 clamp(1.75rem, 8vw, 3rem);
@@ -373,12 +405,14 @@ body.dark .topic-card__cta:focus {
   }
 }
 
+/* Stats grid cho màn hình rộng */
 @media (min-width: 640px) {
   .stats-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
+/* Topic grid cho tablet */
 @media (min-width: 768px) {
   .topic-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -392,10 +426,13 @@ body.dark .topic-card__cta:focus {
     flex: 1;
   }
 }
+
+/* Disable transition tạm thời (JS sử dụng) */
 .feature-carousel__track--no-transition {
   transition: none !important;
 }
 
+/* Giảm chuyển động cho người dùng yêu cầu reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .carousel,
   .feature-carousel {
