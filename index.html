@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+<!-- File: index.html | Mô tả: Trang chủ của ứng dụng Learnie, giới thiệu các tính năng chính và điều hướng người dùng. -->
 <head>
   <!-- Learnie Project | IE104 | Nhóm Learnie | 2025 -->
   <meta charset="UTF-8" />
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="css/home.css" />
 </head>
 <body>
+  <!-- ===== HEADER (Đầu trang) ===== -->
   <header class="site-header">
     <div class="site-header__navbar container">
       <a class="site-header__brand" href="index.html" aria-label="Learnie">
@@ -35,10 +37,13 @@
   </header>
 
   <main>
+    <!-- ===== HERO SECTION (Khu vực giới thiệu chính) ===== -->
+    <!-- Tiêu đề, mô tả và lời kêu gọi hành động (Call To Action) chính của trang chủ -->
     <section class="hero-section hero-section--home reveal">
       <div class="hero-section__inner container">
         <h1 class="hero-section__title">Học tiếng&nbsp;Anh thông&nbsp;minh&nbsp;hơn, dễ&nbsp;hơn và&nbsp;vui&nbsp;hơn cùng Learnie!</h1>
         <p class="hero-section__description">Luyện&nbsp;tập qua câu&nbsp;hỏi thực tế, được chấm&nbsp;điểm tự động và giải&nbsp;thích chi tiết giúp bạn tự tin sử dụng tiếng&nbsp;Anh mỗi ngày.</p>
+        <!-- Nút kêu gọi hành động chính, điều hướng đến trang khóa học -->
         <div class="hero-section__actions">
           <a class="btn btn--primary" href="courses.html">Vào học ngay <span class="btn__icon">➜</span></a>
         </div>
@@ -46,17 +51,24 @@
     </section>
 
     <section class="section section--features reveal">
+      <!-- ===== FEATURES SECTION (Khu vực tính năng) ===== -->
+      <!-- Giới thiệu các tính năng nổi bật của Learnie thông qua một carousel (băng chuyền) -->
       <div class="container">
         <div class="section__heading">
           <h2 class="section__title">Tính&nbsp;năng nổi bật</h2>
           <p class="section__description">Learnie cung cấp trải nghiệm học&nbsp;tập toàn diện với nhiều tính&nbsp;năng hỗ trợ hiệu quả.</p>
         </div>
+        <!-- Carousel hiển thị các thẻ tính năng -->
         <div class="feature-carousel" data-feature-carousel>
+          <!-- Nút điều khiển trượt về phía trước -->
           <button class="feature-carousel__control feature-carousel__control--prev" type="button" aria-label="Xem tính năng trước" data-carousel-prev>
             <span aria-hidden="true">‹</span>
           </button>
+          <!-- Viewport chứa các thẻ có thể trượt -->
           <div class="feature-carousel__viewport">
+            <!-- Track chứa danh sách các thẻ tính năng -->
             <div class="feature-list feature-carousel__track">
+              <!-- Thẻ tính năng 1: Quiz tương tác -->
               <article class="feature-card">
                 <div class="feature-card__figure" aria-hidden="true">
                   <span class="feature-card__icon">📘</span>
@@ -66,6 +78,7 @@
                   <p class="feature-card__description">Làm bài qua các tình huống đời sống như ăn uống, du lịch, công việc…</p>
                 </div>
               </article>
+              <!-- Thẻ tính năng 2: Giải thích chi tiết -->
               <article class="feature-card">
                 <div class="feature-card__figure" aria-hidden="true">
                   <span class="feature-card__icon">🔍</span>
@@ -75,6 +88,7 @@
                   <p class="feature-card__description">Hiểu rõ vì sao đáp án đúng để tránh lặp lại lỗi cũ.</p>
                 </div>
               </article>
+              <!-- Thẻ tính năng 3: Chấm điểm & theo dõi tiến độ -->
               <article class="feature-card">
                 <div class="feature-card__figure" aria-hidden="true">
                   <span class="feature-card__icon">📊</span>
@@ -84,6 +98,7 @@
                   <p class="feature-card__description">Nhận điểm ngay sau khi làm bài, xem kết&nbsp;quả và điểm&nbsp;cao nhất của bạn.</p>
                 </div>
               </article>
+              <!-- Thẻ tính năng 4: Luyện tập lại -->
               <article class="feature-card">
                 <div class="feature-card__figure" aria-hidden="true">
                   <span class="feature-card__icon">🎯</span>
@@ -93,6 +108,7 @@
                   <p class="feature-card__description">Ôn lại những câu sai, luyện&nbsp;lại bài để củng cố từ&nbsp;vựng và phản xạ.</p>
                 </div>
               </article>
+              <!-- Thẻ tính năng 5: Học mọi lúc mọi nơi -->
               <article class="feature-card">
                 <div class="feature-card__figure" aria-hidden="true">
                   <span class="feature-card__icon">📱</span>
@@ -104,6 +120,7 @@
               </article>
             </div>
           </div>
+          <!-- Nút điều khiển trượt về phía sau -->
           <button class="feature-carousel__control feature-carousel__control--next" type="button" aria-label="Xem tính năng tiếp theo" data-carousel-next>
             <span aria-hidden="true">›</span>
           </button>
@@ -111,11 +128,14 @@
       </div>
     </section>
 
+    <!-- ===== STATS SECTION (Khu vực thống kê) ===== -->
+    <!-- Hiển thị các con số thống kê ấn tượng (số người học, đánh giá, chủ đề) -->
     <section class="section section--stats section--alt reveal">
       <div class="container">
         <div class="section__heading">
           <h2 class="section__title">Được tin dùng bởi hàng ngàn học&nbsp;viên</h2>
         </div>
+        <!-- Lưới hiển thị các thẻ thống kê -->
         <div class="stats-list">
           <div class="stats-card">
             <span class="stats-card__icon">👥</span>
@@ -136,12 +156,15 @@
       </div>
     </section>
 
+    <!-- ===== TOPICS SECTION (Khu vực chủ đề phổ biến) ===== -->
+    <!-- Lưới hiển thị các chủ đề học tập phổ biến và hấp dẫn -->
     <section class="section section--topics reveal">
       <div class="container">
         <div class="section__heading">
           <h2 class="section__title">Chủ&nbsp;đề phổ biến</h2>
           <p class="section__description">Khám phá các chủ&nbsp;đề học tiếng&nbsp;Anh thú vị và phù hợp với bạn.</p>
         </div>
+        <!-- Lưới các thẻ chủ đề -->
         <div class="topic-grid">
           <article class="topic-card topic-card--food">
             <div class="topic-card__thumb">
@@ -243,12 +266,15 @@
       </div>
     </section>
 
+    <!-- ===== NEWSLETTER SECTION (Khu vực đăng ký nhận tin) ===== -->
+    <!-- Form cho phép người dùng đăng ký nhận email thông tin từ Learnie -->
     <section class="section newsletter-section reveal">
       <div class="container">
         <div class="section__heading">
           <h2 class="section__title">Nhận mẹo học tiếng&nbsp;Anh hữu ích mỗi tuần</h2>
           <p class="section__description">Đăng ký để nhận email tổng hợp tips, từ&nbsp;vựng và mini-quiz luyện&nbsp;tập hàng tuần - hoàn&nbsp;toàn miễn phí!</p>
         </div>
+        <!-- Form đăng ký email -->
         <form class="newsletter-form" action="#" method="post">
           <label class="visually-hidden" for="newsletterEmail">Email của bạn</label>
           <input class="newsletter-form__input" type="email" id="newsletterEmail" placeholder="Email của bạn" required />
@@ -257,6 +283,8 @@
       </div>
     </section>
 
+    <!-- ===== CTA SECTION (Khu vực kêu gọi hành động cuối trang) ===== -->
+    <!-- Lời kêu gọi hành động mạnh mẽ cuối cùng để khuyến khích người dùng bắt đầu học -->
     <section class="hero-section hero-section--cta reveal">
       <div class="hero-section__inner container">
         <h2 class="hero-section__subtitle">Sẵn&nbsp;sàng bắt&nbsp;đầu<br />hành&nbsp;trình học tiếng&nbsp;Anh của bạn?</h2>
@@ -268,6 +296,8 @@
     </section>
   </main>
 
+  <!-- ===== FOOTER (Chân trang) ===== -->
+  <!-- Chứa thông tin thương hiệu, liên kết nhanh, mạng xã hội và bản quyền -->
   <footer class="footer">
     <div class="footer__grid container">
       <div class="footer__column footer__column--brand">
@@ -315,6 +345,8 @@
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
+  <!-- main.js: Chứa các script chung cho toàn trang; home.js: Chứa logic riêng cho trang chủ -->
   <script src="js/main.js"></script>
   <script src="js/home.js"></script>
 </body>
