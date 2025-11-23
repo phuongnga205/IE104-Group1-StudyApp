@@ -2,11 +2,12 @@
   File: base.css
   Mô tả: Thiết lập biến, layout nền tảng, header, footer và thành phần chung cho Learnie.
   Người thực hiện: Lê Ngọc Phương Nga – 23521204
-  Ngày cập nhật: 09/11/2025 (Quang Phúc cập nhật 16/11/2025)
+  Ngày cập nhật: 23/11/2025
 */
 
 /* ===== VARIABLES ===== */
 :root {
+  /* Note: Định nghĩa các biến màu sắc, font chữ, và các giá trị dùng chung cho toàn bộ trang web ở chế độ sáng (light mode). */
   --color-surface: #ffffff;
   --color-surface-alt: #f8fafc;
   --color-border: #e2e8f0;
@@ -15,15 +16,18 @@
   --color-accent: #2563eb;
   --color-accent-alt: #10b981;
   --color-overlay: rgba(15, 23, 42, 0.05);
+  /* Note: Hai cấp độ đổ bóng chính để tạo sự nhất quán về chiều sâu. */
   --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06);
   --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.08);
   --radius-card: 16px;
+  /* Note: Chiều rộng tối đa của container chính, giúp nội dung không bị quá dài trên màn hình lớn. */
   --max-width: 1200px;
   --font-heading: "Montserrat", system-ui, -apple-system, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
   --transition-base: 0.3s ease;
 }
 
+/* Note: Ghi đè các biến màu và bóng đổ khi body có class 'dark' để kích hoạt chế độ tối. */
 body.dark {
   --color-surface: #0f172a;
   --color-surface-alt: #1e293b;
@@ -36,6 +40,7 @@ body.dark {
 }
 
 /* ===== GLOBAL RESET ===== */
+/* Note: Reset các style mặc định của trình duyệt để đảm bảo tính nhất quán trên mọi nền tảng. */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -43,6 +48,7 @@ body.dark {
 }
 
 body {
+  /* Note: Thiết lập các thuộc tính cơ bản cho toàn bộ trang, bao gồm màu nền, màu chữ và font chữ. */
   background-color: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-body);
@@ -51,6 +57,7 @@ body {
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
+/* Note: Đảm bảo hình ảnh responsive, không vượt quá chiều rộng của phần tử chứa nó. */
 img {
   display: block;
   max-width: 100%;
@@ -71,6 +78,7 @@ ul {
   list-style: none;
 }
 
+/* Note: Lớp tiện ích để ẩn nội dung một cách trực quan nhưng vẫn cho phép các trình đọc màn hình truy cập (tốt cho SEO và khả năng tiếp cận). */
 .visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -82,6 +90,7 @@ ul {
   width: 1px;
 }
 
+/* Note: Container chính giới hạn chiều rộng nội dung và căn giữa. Padding sẽ thay đổi theo kích thước màn hình. */
 .container {
   margin: 0 auto;
   max-width: var(--max-width);
@@ -115,6 +124,7 @@ ul {
 }
 
 h1, h2, h3, h4 {
+  /* Note: Thiết lập font và kiểu chữ chung cho các tiêu đề. `text-wrap: balance` giúp cân bằng các dòng chữ để dễ đọc hơn. */
   color: var(--color-text);
   font-family: var(--font-heading);
   font-weight: 600;
@@ -123,12 +133,14 @@ h1, h2, h3, h4 {
 }
 
 p {
+  /* Note: Kiểu chữ mặc định cho các đoạn văn. `text-wrap: pretty` giúp tối ưu việc ngắt dòng để tránh các "dòng mồ côi". */
   color: var(--color-text-muted);
   font-size: 1rem;
   text-wrap: pretty;
 }
 
 /* ===== HEADER ===== */
+/* Note: Header được giữ cố định ở đầu trang khi cuộn. `backdrop-filter` tạo hiệu ứng mờ cho nền phía sau. */
 .site-header {
   position: sticky;
   top: 0;
@@ -138,6 +150,7 @@ p {
   border-bottom: 1px solid var(--color-border);
 }
 
+/* Note: Ghi đè màu nền header cho chế độ tối. */
 body.dark .site-header {
   background-color: rgba(15, 23, 42, 0.85);
 }
@@ -162,6 +175,7 @@ body.dark .site-header {
   width: auto;
 }
 
+/* Note: Nút hamburger menu, chỉ hiển thị trên màn hình nhỏ (mobile). */
 /* Hamburger menu button */
 .menu-toggle {
   align-items: center;
@@ -178,6 +192,7 @@ body.dark .site-header {
   z-index: 101;
 }
 
+/* Note: Khung chứa 3 đường kẻ của icon hamburger. */
 .menu-toggle__icon {
   display: flex;
   flex-direction: column;
@@ -188,6 +203,7 @@ body.dark .site-header {
   width: 24px;
 }
 
+/* Note: Kiểu dáng cho từng đường kẻ trong icon. */
 .menu-toggle__line {
   background-color: var(--color-text);
   border-radius: 2px;
@@ -200,11 +216,13 @@ body.dark .site-header {
   transform-origin: 50% 50%;
 }
 
+/* Note: Khi menu được mở (aria-expanded="true"), icon sẽ chuyển thành hình chữ 'X'. */
 .menu-toggle[aria-expanded="true"] .menu-toggle__icon {
   justify-content: center;
   gap: 0;
 }
 
+/* Note: Biến đổi đường kẻ đầu tiên thành một nửa của chữ 'X'. */
 .menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(1) {
   margin: 0;
   position: absolute;
@@ -215,12 +233,14 @@ body.dark .site-header {
   transform-origin: 50% 50%;
 }
 
+/* Note: Ẩn đường kẻ ở giữa. */
 .menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(2) {
   opacity: 0;
   visibility: hidden;
   width: 0;
 }
 
+/* Note: Biến đổi đường kẻ cuối cùng thành nửa còn lại của chữ 'X'. */
 .menu-toggle[aria-expanded="true"] .menu-toggle__line:nth-child(3) {
   margin: 0;
   position: absolute;
@@ -231,6 +251,7 @@ body.dark .site-header {
   transform-origin: 50% 50%;
 }
 
+/* Note: Khung chứa các liên kết điều hướng chính. */
 .main-nav {
   align-items: center;
   display: flex;
@@ -238,6 +259,7 @@ body.dark .site-header {
   gap: 1rem;
 }
 
+/* Note: Kiểu dáng cho từng liên kết trong menu. Bo tròn và có hiệu ứng khi hover. */
 .main-nav__link {
   border-radius: 999px;
   color: var(--color-text);
@@ -253,6 +275,7 @@ body.dark .site-header {
   color: var(--color-accent);
 }
 
+/* Note: Kiểu dáng cho liên kết đang hoạt động (trang hiện tại). */
 .main-nav__link--active {
   background-color: var(--color-accent);
   color: #fff;
@@ -265,6 +288,7 @@ body.dark .site-header {
   gap: 0.75rem;
 }
 
+/* Note: Nút chuyển đổi giữa chế độ sáng và tối. */
 .theme-toggle {
   align-items: center;
   background-color: var(--color-surface);
@@ -287,6 +311,7 @@ body.dark .site-header {
 }
 
 /* ===== BUTTONS ===== */
+/* Note: Kiểu dáng cơ bản cho tất cả các nút. Sử dụng flex để căn chỉnh icon và text. */
 .btn {
   align-items: center;
   border: none;
@@ -308,6 +333,7 @@ body.dark .site-header {
   transform: translateY(-2px);
 }
 
+/* Note: Biến thể nút chính, sử dụng nền gradient và có đổ bóng. */
 .btn--primary {
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent-alt));
   color: #fff;
@@ -321,6 +347,7 @@ body.dark .site-header {
   box-shadow: var(--shadow-md);
 }
 
+/* Note: Biến thể nút "ma" (ghost), không có nền, chỉ có viền. */
 .btn--ghost {
   background-color: transparent;
   border: 2px solid var(--color-accent);
@@ -332,6 +359,7 @@ body.dark .site-header {
   background-color: rgba(37, 99, 235, 0.1);
 }
 
+/* Note: Ghi đè màu sắc cho nút ghost ở chế độ tối để đảm bảo độ tương phản. */
 body.dark .btn--ghost {
   border-color: rgba(96, 165, 250, 0.8);
   color: rgba(96, 165, 250, 0.95);
@@ -342,6 +370,7 @@ body.dark .btn--ghost:focus {
   background-color: rgba(96, 165, 250, 0.16);
 }
 
+/* Note: Biến thể nút nhỏ hơn, dùng cho các hành động phụ. */
 .btn--small {
   font-size: 0.9rem;
   padding: 0.6rem 1rem;
@@ -352,6 +381,7 @@ body.dark .btn--ghost:focus {
 }
 
 /* ===== GENERIC SECTIONS ===== */
+/* Note: Kiểu dáng chung cho một khu vực (section) trên trang. Có padding và đường viền dưới. */
 .section {
   border-bottom: 1px solid var(--color-border);
   padding: 3.5rem 0;
@@ -377,10 +407,12 @@ body.dark .btn--ghost:focus {
   }
 }
 
+/* Note: Biến thể section với màu nền thay thế để tạo sự phân cách trực quan. */
 .section--alt {
   background-color: var(--color-surface-alt);
 }
 
+/* Note: Khung chứa tiêu đề và mô tả của một section. */
 .section__heading {
   margin: 0 auto 2rem;
   max-width: 680px;
@@ -396,6 +428,7 @@ body.dark .btn--ghost:focus {
 }
 
 /* ===== HERO ===== */
+/* Note: Khu vực hero (phần đầu trang nổi bật) với nền gradient và padding lớn. */
 .hero-section {
   background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.05), rgba(255, 255, 255, 0));
   border-bottom: 1px solid var(--color-border);
@@ -422,10 +455,12 @@ body.dark .btn--ghost:focus {
   }
 }
 
+/* Note: Biến thể hero cho các trang phụ, có nền gradient đậm hơn. */
 .hero-section--sub {
   background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.18), rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0));
 }
 
+/* Note: Biến thể hero cho khu vực kêu gọi hành động (Call to Action). */
 .hero-section--cta {
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.12));
 }
@@ -436,6 +471,7 @@ body.dark .btn--ghost:focus {
   width: 100%;
 }
 
+/* Note: Giới hạn chiều rộng của nội dung bên trong hero để tăng tính dễ đọc. */
 /* Giới hạn chiều rộng nội dung hero để dễ đọc, nhưng vẫn giữ padding khớp với container */
 .hero-section__inner .hero-section__title,
 .hero-section__inner .hero-section__subtitle,
@@ -471,11 +507,13 @@ body.dark .btn--ghost:focus {
 }
 
 /* ===== FOOTER ===== */
+/* Note: Chân trang (footer) với màu nền phụ và đường viền trên. */
 .footer {
   background-color: var(--color-surface-alt);
   border-top: 1px solid var(--color-border);
 }
 
+/* Note: Lưới (grid) chính của footer, chia các cột nội dung. */
 .footer__grid {
   display: grid;
   gap: 2.5rem;
@@ -487,6 +525,7 @@ body.dark .btn--ghost:focus {
   box-sizing: border-box;
 }
 
+/* Note: Trên màn hình lớn, footer chia thành 3 cột đều nhau. */
 /* Responsive footer grid - 3 cột bằng nhau */
 @media (min-width: 768px) {
   .footer__grid {
@@ -514,6 +553,7 @@ body.dark .btn--ghost:focus {
   padding: 0;
 }
 
+/* Note: Cột đầu tiên chứa logo và mô tả ngắn. */
 .footer__brand {
   align-items: flex-start;
   display: flex;
@@ -532,6 +572,7 @@ body.dark .btn--ghost:focus {
   margin-top: 0.35rem;
 }
 
+/* Note: Tiêu đề cho các cột liên kết trong footer. */
 .footer__heading {
   color: var(--color-text);
   font-size: 1rem;
@@ -539,6 +580,7 @@ body.dark .btn--ghost:focus {
   margin-bottom: 1rem;
 }
 
+/* Note: Lưới chứa các liên kết văn bản. */
 .footer__links {
   display: grid;
   gap: 0.6rem;
@@ -555,11 +597,13 @@ body.dark .btn--ghost:focus {
   color: var(--color-accent);
 }
 
+/* Note: Lưới chứa các liên kết dạng icon (mạng xã hội). */
 .footer__links--icons {
   display: flex;
   gap: 1rem;
 }
 
+/* Note: Kiểu dáng cho từng icon liên kết, có hiệu ứng khi hover. */
 .footer__link-icon {
   align-items: center;
   border-radius: 999px;
@@ -584,6 +628,7 @@ body.dark .btn--ghost:focus {
   outline: none;
 }
 
+/* Note: Khu vực hiển thị giờ làm việc trong footer. */
 .footer__hours {
   margin-top: 1.75rem;
   text-align: left;
@@ -611,11 +656,13 @@ body.dark .btn--ghost:focus {
   font-size: 1.3rem;
 }
 
+/* Note: Phần dưới cùng của footer, chứa thông tin bản quyền. */
 .footer__bottom {
   border-top: 1px solid var(--color-border);
   padding: 1.25rem 0;
 }
 
+/* Note: Căn giữa và định dạng text cho phần bản quyền. */
 .footer__bottom-inner {
   color: var(--color-text-muted);
   font-size: 0.9rem;
@@ -623,6 +670,7 @@ body.dark .btn--ghost:focus {
 }
 
 /* ===== RESPONSIVE ===== */
+/* Note: Trên màn hình nhỏ (mobile), ẩn menu điều hướng chính và hiển thị nút hamburger. */
 /* Mobile: Ẩn navigation, hiển thị hamburger menu */
 @media (max-width: 767px) {
   /* Đảo vị trí: Theme toggle ở giữa, Menu toggle sát bên phải */
@@ -643,6 +691,7 @@ body.dark .btn--ghost:focus {
     margin-right: 0;
   }
 
+  /* Note: Menu điều hướng chính khi ở chế độ mobile. Nó được định vị tuyệt đối và ẩn/hiện bằng JS. */
   .main-nav {
     background-color: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
@@ -665,11 +714,13 @@ body.dark .btn--ghost:focus {
     background-color: var(--color-surface);
   }
 
+  /* Note: Khi menu được mở, nó sẽ trượt xuống và hiện ra. */
   .main-nav[aria-expanded="true"] {
     max-height: 400px;
     opacity: 1;
   }
 
+  /* Note: Các liên kết trong menu mobile chiếm toàn bộ chiều rộng và được căn giữa. */
   .main-nav__link {
     border-radius: 999px;
     display: block;
@@ -679,6 +730,7 @@ body.dark .btn--ghost:focus {
     width: 100%;
   }
 
+  /* Note: Hiệu ứng phóng to nhẹ cho liên kết đang active trên mobile. */
   .main-nav__link--active {
     background-color: var(--color-accent);
     color: #fff;
@@ -694,6 +746,7 @@ body.dark .btn--ghost:focus {
   }
 }
 
+/* Note: Tăng kích thước font chữ cho các tiêu đề trên màn hình lớn hơn. */
 @media (min-width: 768px) {
   .section__title {
     font-size: 1.75rem;
@@ -707,6 +760,7 @@ body.dark .btn--ghost:focus {
     font-size: 2.1rem;
   }
 
+  /* Note: Trên desktop, trả lại thứ tự và kiểu dáng mặc định cho các thành phần header. */
   /* Reset order và margin về trạng thái ban đầu trên desktop */
   .site-header__brand {
     order: initial;
@@ -724,6 +778,7 @@ body.dark .btn--ghost:focus {
     margin-right: 0;
   }
 
+  /* Note: Menu điều hướng trên desktop là một hàng ngang, không còn là menu xổ xuống. */
   .main-nav {
     gap: 1.5rem;
     position: static;
@@ -743,6 +798,7 @@ body.dark .btn--ghost:focus {
   }
 }
 
+/* Note: Tăng khoảng cách và kích thước font chữ hơn nữa trên màn hình rất lớn. */
 @media (min-width: 1024px) {
   .site-header__navbar {
     gap: 2.5rem;
