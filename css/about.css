@@ -2,14 +2,15 @@
   File: about.css
   Mô tả: Kiểu dáng cho trang giới thiệu Learnie (câu chuyện, giá trị cốt lõi, đội ngũ).
   Người thực hiện: Lê Ngọc Phương Nga – 23520992
-  Ngày cập nhật: 12/11/2025
+  Ngày cập nhật: 23/11/2025
 */
 
 /* ===== HERO ABOUT ===== */
+/* Note: Nền gradient nhẹ tạo điểm nhấn cho phần giới thiệu về Learnie */
 .hero-section--about {
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.08));
 }
-
+/* Note: Eyebrow nổi bật với màu accent, chữ in hoa và khoảng cách dưới */
 .hero-section__eyebrow {
   color: var(--color-accent);
   font-size: 0.95rem;
@@ -18,37 +19,38 @@
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
-
+/* Note: Tiêu đề lớn, responsive với clamp để phù hợp nhiều màn hình */
 .hero-section--about .hero-section__title {
   font-size: clamp(2rem, 3vw + 1.4rem, 2.6rem);
   margin-bottom: 1rem;
 }
-
+/* Note: Mô tả ngắn gọn, font size vừa phải cho phần hero */
 .hero-section--about .hero-section__description {
   font-size: 1.08rem;
 }
 
 /* ===== STORY ===== */
+/* Note: Section story căn trái, kể về hành trình dự án */
 .section--story {
   text-align: left;
 }
-
+/* Note: Grid chia bố cục nội dung và hình ảnh */
 .story-grid {
   display: grid;
   gap: 2rem;
   align-items: center;
 }
-
+/* Note: Khoảng cách giữa các đoạn văn trong phần story */
 .story-grid__content p + p {
   margin-top: 1rem;
 }
-
+/* Note: Media story bo góc, đổ bóng nhẹ, overflow hidden */
 .story-grid__media {
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
-
+/* Note: Ảnh story luôn fill khung, không bị méo */
 .story-grid__media img {
   display: block;
   height: 100%;
@@ -57,16 +59,17 @@
 }
 
 /* ===== CORE VALUES ===== */
+/* Note: Section giá trị cốt lõi dùng nền phụ để tách biệt nội dung */
 .section--values {
   background-color: var(--color-surface-alt);
 }
-
+/* Note: Grid chia các thẻ giá trị thành hàng ngang, có khoảng cách */
 .value-grid {
   display: grid;
   gap: 1.5rem;
   margin-top: 2rem;
 }
-
+/* Note: Card giá trị bo góc, đổ bóng, căn giữa, hiệu ứng hover nổi lên */
 .value-card {
   align-items: center;
   background-color: var(--color-surface);
@@ -80,37 +83,38 @@
   text-align: center;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
-
+/* Note: Hover card giá trị nổi lên và đổ bóng mạnh hơn */
 .value-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
-
+/* Note: Icon giá trị lớn, nổi bật đầu mỗi card */
 .value-card__icon {
   font-size: 1.6rem;
 }
-
+/* Note: Tiêu đề card giá trị đậm, font lớn hơn mô tả */
 .value-card__title {
   font-size: 1.1rem;
   font-weight: 600;
 }
-
+/* Note: Mô tả card giá trị font vừa, line-height thoáng */
 .value-card__description {
   font-size: 0.98rem;
   line-height: 1.6;
 }
 
 /* ===== TEAM ===== */
+/* Note: Section đội ngũ căn giữa, giới thiệu thành viên nhóm */
 .section--team {
   text-align: center;
 }
-
+/* Note: Grid chia các thẻ thành viên thành hàng ngang, có khoảng cách */
 .team-grid {
   display: grid;
   gap: 1.5rem;
   margin-top: 2.5rem;
 }
-
+/* Note: Card thành viên bo góc, đổ bóng, hiệu ứng hover nổi lên */
 .team-card {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -119,12 +123,12 @@
   padding: 2rem 1.75rem;
   transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
-
+/* Note: Hover card thành viên nổi lên và đổ bóng mạnh hơn */
 .team-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-6px);
 }
-
+/* Note: Ảnh thành viên bo tròn, đổ bóng, căn giữa card */
 .team-card__photo {
   border-radius: 999px;
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
@@ -134,7 +138,7 @@
   position: relative;
   width: 6rem;
 }
-
+/* Note: Viền trắng mờ quanh ảnh thành viên */
 .team-card__photo::after {
   border: 2px solid rgba(255, 255, 255, 0.65);
   border-radius: 999px;
@@ -143,25 +147,25 @@
   position: absolute;
   pointer-events: none;
 }
-
+/* Note: Ảnh thành viên luôn fill khung, không bị méo */
 .team-card__photo img {
   display: block;
   height: 100%;
   object-fit: cover;
   width: 100%;
 }
-
+/* Note: Tên thành viên đậm, font lớn hơn vai trò */
 .team-card__name {
   font-size: 1.1rem;
   font-weight: 600;
 }
-
+/* Note: Vai trò thành viên dùng màu accent, font nhỏ hơn tên */
 .team-card__role {
   color: var(--color-accent);
   font-size: 0.95rem;
   margin-top: 0.35rem;
 }
-
+/* Note: Quote thành viên dùng màu mờ, italic, line-height thoáng */
 .team-card__quote {
   color: var(--color-text-muted);
   font-size: 0.97rem;
@@ -169,40 +173,36 @@
   margin-top: 1rem;
   line-height: 1.6;
 }
-
+/* Note: Card trưởng nhóm nổi bật hơn với border và shadow xanh, hiệu ứng nổi mạnh hơn */
 .team-card--lead {
   border-color: rgba(37, 99, 235, 0.35);
   box-shadow: 0 18px 42px rgba(37, 99, 235, 0.12);
   transform: translateY(-10px);
 }
-
 .team-card--lead:hover {
   transform: translateY(-14px);
 }
-
 .team-card--lead .team-card__photo {
   box-shadow: 0 16px 32px rgba(37, 99, 235, 0.24);
 }
 
 /* ===== RESPONSIVE ===== */
+/* Note: Trên màn hình lớn, grid chia đều các cột cho story, value, team */
 @media (min-width: 768px) {
   .story-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
   .story-grid__media {
     min-height: 320px;
   }
-
   .value-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
   .team-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-
+/* Note: Trên mobile, card trưởng nhóm không nổi lên */
 @media (max-width: 767px) {
   .team-card--lead {
     transform: none;
