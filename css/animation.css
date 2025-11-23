@@ -2,20 +2,24 @@
   File: animation.css
   Mô tả: Quy định hiệu ứng reveal khi cuộn và các tiện ích animation.
   Người thực hiện: Lê Ngọc Phương Nga - 23520992
-  Ngày cập nhật: 12/11/2025
+  Ngày cập nhật: 23/11/2025
 */
 
+/* ===== HIỆU ỨNG REVEAL ===== */
+/* Note: Class reveal dùng để ẩn phần tử ban đầu, tạo hiệu ứng xuất hiện khi cuộn đến */
 .reveal {
   opacity: 0;
   transform: translateY(48px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-
+/* Note: Khi thêm class reveal--visible, phần tử sẽ hiện ra với hiệu ứng mờ dần và trượt lên */
 .reveal--visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* ===== HIỆU ỨNG HOVER CHO THẺ ===== */
+/* Note: Các thẻ nút, card đều có hiệu ứng chuyển động và đổ bóng khi hover để tạo cảm giác tương tác */
 .btn,
 .feature-card,
 .topic-card,
