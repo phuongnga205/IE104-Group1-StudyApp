@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/quiz.css" />
 </head>
 <body>
+  <!-- ===== HEADER (Đầu trang) ===== -->
   <header class="site-header">
     <div class="site-header__navbar container">
       <a class="site-header__brand" href="index.html" aria-label="Learnie">
@@ -34,21 +35,32 @@
     </div>
   </header>
 
+  <!-- ===== Nội dung chính của trang Quiz ===== -->
   <main class="quiz-main">
+    <!-- ===== QUIZ SECTION (Khu vực bài kiểm tra) ===== -->
+    <!-- Chứa toàn bộ giao diện và logic của một phiên làm bài quiz -->
     <section class="section section--quiz reveal">
       <div class="container">
+        <!-- Tiêu đề của chủ đề quiz, được cập nhật bằng JavaScript -->
         <h1 class="quiz-header__title" id="quizTopicTitle">Chủ&nbsp;đề: Đồ&nbsp;ăn &amp; Thức&nbsp;uống</h1>
+        <!-- Wrapper chính cho khu vực quiz, chứa thẻ câu hỏi và bảng kết quả -->
         <div class="quiz-wrapper">
+          <!-- Thẻ hiển thị câu hỏi và các tùy chọn trả lời -->
           <article class="quiz-card" id="quizCard">
+            <!-- Phần metadata của câu hỏi: tiến độ và điểm số hiện tại -->
             <header class="quiz-card__meta">
               <p class="quiz-card__progress" id="quizQuestionIndex">Câu&nbsp;hỏi 1 / 5</p>
               <p class="quiz-card__score" id="quizScore">Điểm: 0 / 100</p>
             </header>
+            <!-- Nội dung chính của câu hỏi -->
             <div class="quiz-card__content">
               <h2 class="quiz-card__question" id="quizQuestionText">What is "cà phê" in English?</h2>
+              <!-- Khu vực chứa các tùy chọn trả lời (render bằng JS) -->
               <div class="quiz-response" id="quizResponseArea"></div>
+              <!-- Vùng hiển thị phản hồi (đúng/sai) sau khi kiểm tra đáp án -->
               <div class="quiz-feedback" id="quizFeedback" role="status" hidden></div>
             </div>
+            <!-- Chân thẻ chứa các nút hành động -->
             <footer class="quiz-card__footer">
               <div class="quiz-card__actions">
                 <button class="btn btn--primary quiz-card__check" id="checkAnswerBtn" type="button">Kiểm&nbsp;tra đáp án</button>
@@ -57,11 +69,17 @@
             </footer>
           </article>
 
+          <!-- Bảng hiển thị kết quả cuối cùng sau khi hoàn thành quiz -->
           <aside class="quiz-result" id="quizResult">
+            <!-- Tiêu đề của bảng kết quả -->
             <h2 class="quiz-result__title" id="quizResultTitle">Điểm&nbsp;cao nhất</h2>
+            <!-- Điểm số của lần làm bài hiện tại (ẩn ban đầu) -->
             <p class="quiz-result__score" id="finalScoreText" hidden>Điểm: 80 / 100</p>
+            <!-- Điểm số cao nhất người dùng từng đạt được cho chủ đề này -->
             <p class="quiz-result__best" id="bestScoreText">Điểm&nbsp;cao nhất của bạn: 0 / 100</p>
+            <!-- Mô tả và lời kêu gọi hành động sau khi hoàn thành (ẩn ban đầu) -->
             <p class="quiz-result__description" id="quizResultDescription" hidden>Quay&nbsp;lại trang Khóa&nbsp;học để chọn chủ&nbsp;đề khác hoặc luyện&nbsp;lại để phá kỷ lục!</p>
+            <!-- Các nút hành động sau khi kết thúc quiz (ẩn ban đầu) -->
             <div class="quiz-result__actions" id="quizResultActions" hidden>
               <button class="quiz-result__btn" id="restartQuizBtn" type="button">Làm&nbsp;lại từ&nbsp;đầu</button>
               <a class="quiz-result__btn" href="courses.html">Quay&nbsp;lại Khóa&nbsp;học</a>
@@ -72,6 +90,7 @@
     </section>
   </main>
 
+  <!-- ===== FOOTER (Chân trang) ===== -->
   <footer class="footer">
     <div class="footer__grid container">
       <div class="footer__column footer__column--brand">
@@ -119,6 +138,8 @@
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
+  <!-- main.js: Chứa các script chung cho toàn trang; quiz.js: Chứa logic riêng cho trang quiz -->
   <script src="js/main.js"></script>
   <script src="js/quiz.js"></script>
 </body>

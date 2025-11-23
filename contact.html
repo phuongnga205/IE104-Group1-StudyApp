@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/contact.css" />
 </head>
 <body>
+  <!-- ===== HEADER (Đầu trang) ===== -->
   <header class="site-header">
     <div class="site-header__navbar container">
       <a class="site-header__brand" href="index.html" aria-label="Learnie">
@@ -34,7 +35,10 @@
     </div>
   </header>
 
+  <!-- ===== Nội dung chính ===== -->
   <main>
+    <!-- ===== HERO SECTION (Khu vực giới thiệu) ===== -->
+    <!-- Tiêu đề và mô tả ngắn cho trang Liên hệ -->
     <section class="hero-section hero-section--sub reveal">
       <div class="hero-section__inner container">
         <h1 class="hero-section__title">Liên&nbsp;hệ với Learnie</h1>
@@ -42,27 +46,36 @@
       </div>
     </section>
 
+    <!-- ===== CONTACT SECTION (Khu vực nội dung liên hệ) ===== -->
+    <!-- Chứa form liên hệ và các thông tin phụ trong sidebar -->
     <section class="section section--contact reveal">
       <div class="container contact-layout">
+        <!-- Form liên hệ chính để người dùng gửi thông tin -->
         <form class="contact-form" id="contactForm" novalidate>
           <h2 class="contact-form__title">Gửi ngay thông tin của bạn</h2>
 
+          <!-- Trường nhập Tên -->
           <label class="contact-form__label" for="name">Tên của bạn *</label>
           <input class="contact-form__input" type="text" id="name" name="name" placeholder="Ví dụ: Trần Minh Anh" required />
 
+          <!-- Trường nhập Email -->
           <label class="contact-form__label" for="email">Email *</label>
           <input class="contact-form__input" type="email" id="email" name="email" placeholder="Ví dụ: ban@learnie.vn" required />
 
+          <!-- Trường nhập Nội dung liên hệ -->
           <label class="contact-form__label" for="message">Nội dung liên&nbsp;hệ *</label>
           <textarea class="contact-form__textarea" id="message" name="message" rows="6" placeholder="Chia sẻ điều bạn cần Learnie hỗ trợ..." required></textarea>
 
+          <!-- Nút gửi và vùng hiển thị phản hồi sau khi gửi form -->
           <div class="contact-form__actions">
             <button class="btn btn--primary contact-form__submit" type="submit">Gửi ngay</button>
           </div>
           <p class="contact-form__feedback" id="formFeedback" role="alert" aria-live="assertive"></p>
         </form>
 
+        <!-- Sidebar chứa các thông tin liên hệ bổ sung -->
         <div class="contact-sidebar">
+          <!-- Card: Thông tin kết nối (Email, Mạng xã hội, Địa chỉ) -->
           <article class="contact-card">
             <h2 class="contact-card__title">Kết nối cùng Learnie</h2>
             <ul class="contact-card__list">
@@ -85,11 +98,13 @@
             </ul>
           </article>
 
+          <!-- Card: Giờ làm việc -->
           <article class="contact-card contact-card--hours">
             <h2 class="contact-card__title">🕒 Giờ làm việc</h2>
             <p>Thứ 2 – Thứ 6: 09:00 – 18:00<br />Thứ 7: 09:00 – 12:00<br /><em>(Nghỉ Chủ nhật và ngày lễ)</em></p>
             <p class="contact-card__note">💬 Learnie sẽ phản hồi trong vòng 24 giờ làm việc.</p>
           </article>
+          <!-- Card: Bản đồ vị trí -->
           <article class="contact-card contact-card--map" aria-labelledby="contactMapTitle">
             <h2 class="contact-card__title" id="contactMapTitle">📍 Bản đồ</h2>
             <div class="contact-card__map-frame">
@@ -105,10 +120,12 @@
           </article>
         </div>
       </div>
+      <!-- Toast message: Hiển thị thông báo nhanh (ví dụ: gửi thành công) -->
       <div class="toast" id="contactToast" role="status" aria-live="polite"></div>
     </section>
   </main>
 
+  <!-- ===== FOOTER (Chân trang) ===== -->
   <footer class="footer">
     <div class="footer__grid container">
       <div class="footer__column footer__column--brand">
@@ -156,6 +173,8 @@
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
+  <!-- main.js: Script chung; contact.js: Script xử lý form và toast message cho trang liên hệ -->
   <script src="js/main.js"></script>
   <script src="js/contact.js"></script>
 </body>
